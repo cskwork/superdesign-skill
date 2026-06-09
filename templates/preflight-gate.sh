@@ -30,7 +30,7 @@ SRC=()
 if [ "$#" -gt 0 ]; then
   SRC=("$@")
 else
-  while IFS= read -r f; do SRC+=("$f"); done < <(find "$VAULT" -type f \( -name '*.html' -o -name '*.css' -o -name '*.jsx' -o -name '*.tsx' \) 2>/dev/null)
+  while IFS= read -r f; do SRC+=("$f"); done < <(find "$VAULT" -type f \( -name '*.html' -o -name '*.css' -o -name '*.jsx' -o -name '*.tsx' -o -name '*.js' -o -name '*.ts' -o -name '*.svelte' -o -name '*.vue' -o -name '*.astro' \) -not -path '*/node_modules/*' -not -path '*/dist/*' -not -path '*/build/*' -not -path '*/.next/*' 2>/dev/null)
 fi
 [ "${#SRC[@]}" -gt 0 ] || fail "no source files to scan (pass files as args or put *.html/*.css/*.jsx/*.tsx in the vault)"
 

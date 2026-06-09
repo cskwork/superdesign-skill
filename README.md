@@ -68,6 +68,8 @@ node templates/contrast-gate.mjs contrast-pairs.json
 bash templates/preflight-gate.sh <vault-dir> path/to/index.html
 ```
 
+A vault is the per-surface work dir (default `.superdesign/<surface>/`) holding `claims.md` and `contrast-pairs.json`; start both from `templates/`.
+
 Per-line escape hatch: a line containing `taste-ok` suppresses the detector for a deliberate, justified choice (e.g. a neutral Inter read).
 
 ## Install

@@ -2,6 +2,10 @@
 
 Make the design current without chasing fads. Live by default, snapshot on fallback.
 
+## Reuse before searching
+
+A dated `trend-pulse.md` for the same kind+vibe, <=30 days old, may be reused: note `reused <date>` instead of re-searching. Different kind, different vibe, or older -> pulse fresh.
+
 ## Default: live search
 
 1. `WebSearch` 2-3 queries scoped to the brief:

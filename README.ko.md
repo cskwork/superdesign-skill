@@ -68,6 +68,8 @@ node templates/contrast-gate.mjs contrast-pairs.json
 bash templates/preflight-gate.sh <vault-dir> path/to/index.html
 ```
 
+vault는 표면(surface)별 작업 디렉터리(기본 `.superdesign/<surface>/`)로 `claims.md`와 `contrast-pairs.json`을 담습니다. 둘 다 `templates/`에서 시작하세요.
+
 행 단위 이스케이프: `taste-ok`를 포함한 행은 의도적이고 정당한 선택(예: 중립적 Inter read)에 대해 디텍터를 억제합니다.
 
 ## 설치

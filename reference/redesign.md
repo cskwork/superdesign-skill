@@ -27,3 +27,5 @@ Targeted evolution when IA/content/SEO are sound. Full redesign only when visual
 ## Then run the default loop
 
 Trend pulse (what is current for this kind now) -> Direction (dials from audit, `+1/+2` for overhaul) -> Build -> Critique (gate) -> Verify. Run the gate on the new output, not the old.
+
+Done when: audit recorded (preserve vs retire), preserve-list untouched without consent, and the default-loop gate is green.
