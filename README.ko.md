@@ -4,7 +4,7 @@
 
 마스터 웹/모바일 디자이너를 Claude Code 스킬로. 의도를 읽고, 현재 트렌드를 조사하고, 알맞은 미감으로 라우팅해, 결정적 안티슬롭 게이트를 통과하는 우아한 UI를 산출합니다. 자기완결형이자 포터블: Stitch, gpt-image-2, 웹 검색 없이도 동작하며 우아하게 degrade합니다.
 
-랜딩 페이지: https://cskwork.github.io/superdesign-skill (Pages 활성화 후)
+랜딩 페이지: https://cskwork.github.io/superdesign-skill
 
 ## 일반 디자인 프롬프트보다 더하는 것
 
