@@ -4,7 +4,7 @@
 
 A master web/mobile designer as a Claude Code skill. Read the intent, pulse current trends, route to the aesthetic that fits, and ship elegant UI that passes a deterministic anti-slop gate. Self-contained and portable: works without Stitch, gpt-image-2, or web search, and degrades gracefully.
 
-Landing page: https://cskwork.github.io/superdesign-skill (after Pages is enabled)
+Landing page: https://cskwork.github.io/superdesign-skill
 
 ## What it adds over a plain design prompt
 
