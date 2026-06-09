@@ -14,6 +14,7 @@ Load at Build when medium = web. Pairs with `taste-core.md`.
 
 - `max-w-[1400px] mx-auto` or `max-w-7xl`. `min-h-[100dvh]`, never `h-screen`. CSS Grid over flex percentage math. Standard breakpoints; mobile collapse explicit per section below 768px.
 - State: local `useState`/`useReducer`; global only to avoid deep prop drilling. Continuous values (mouse/scroll/physics) via Motion values, never React state.
+- CJK/Korean (see `taste-core.md`): scope `html[lang="ko"]{ word-break: keep-all }` so words never split mid-line; load Pretendard or Noto Sans KR with a Latin face first; set `<html lang>`. For a bilingual page, swap text via `data-en`/`data-ko` + a toggle (persist in `localStorage`, default from `navigator.language`, allow `?lang=` override).
 
 ## Perf
 
