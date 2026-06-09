@@ -19,6 +19,7 @@ Load at Build when medium = mobile/native. Net-new vs web taste rules; pairs wit
 - Touch targets >= 44x44pt (iOS) / 48x48dp (Android). Thumb-reach: primary actions in the lower zone.
 - One-hand layout; bottom sheets over top menus. Respect safe areas + notch/Dynamic Island; never hardcode status-bar height.
 - Type scales with the platform dynamic-type setting. Test smallest + largest. Honor reduce-motion + reduce-transparency.
+- CJK/Korean (see `taste-core.md`): a real CJK face (Pretendard / Noto Sans KR, system CJK on native), word (어절) line-breaking with no mid-word wrap, natural copy with correct particles. Korean labels run longer than English, so size buttons/tabs to fit both without truncation.
 - Gestures have visible affordance + a button fallback. Loading/empty/error/offline states per screen.
 - Light + dark via platform color scheme. Off-black/off-white, not pure.
 

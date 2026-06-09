@@ -31,6 +31,17 @@ Use an official design system when the brief maps to one (Fluent/Material/Carbon
 - Serif only when brand names one or the read is genuinely editorial/luxury. Not Fraunces/Instrument Serif as defaults.
 - Emphasis = italic/bold same family, never a random serif word. Italic descenders (`y g j p q`) need `leading-[1.1]` + `pb-1`.
 
+## CJK / Korean text
+
+When the UI ships Korean/Japanese/Chinese, apply these (universal, gate-adjacent):
+
+- Line-break at word (어절) boundaries, never mid-word: set `word-break: keep-all` scoped to the CJK lang (`html[lang="ko"]`); Latin stays `normal`. CJK wraps between any glyphs by default, which splits words uglily without this.
+- Real CJK webfont: KO Pretendard or Noto Sans KR; JP Noto Sans JP; SC/TC Noto Sans CJK. List a Latin face first for mixed runs. Never render Hangul/Kanji in a Latin-only font.
+- Natural copy, not transliterated English word order: correct particles + endings, one register per surface (`-합니다` vs `-해요`), no telegraphic noun-stacks.
+- Tighten measure: CJK carries more meaning per character, so cap line length shorter than Latin. Do not force `<br>` mid-phrase; let keep-all wrap.
+- Punctuation: middle dot (`·`), comma, line break. The em/en-dash ban still holds; no half-width Latin punctuation inside CJK runs.
+- Set `lang` on `<html>` (or the block) so the browser applies CJK line-breaking and font selection. Mixed EN/KO: keep both faces legible and any language toggle keyboard-reachable.
+
 ## Color
 
 - Max one accent. Saturation < 80% default. Lock one palette; no warm/cool gray drift.
