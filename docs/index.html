@@ -7,16 +7,18 @@
 <meta name="description" content="A master web/mobile designer as a Claude Code skill. Read the intent, pulse current trends, route to the right aesthetic, and ship elegant UI past a deterministic anti-slop gate.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz@0,6..72;1,6..72&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0b0c0e; --glass:rgba(20,22,26,.55); --glass-strong:rgba(20,22,26,.72);
-    --ink:#f5f4f0; --body:#d8d7d1; --muted:#a8a6a0; --line:rgba(245,244,240,.10);
-    --accent:#e9b949; --accent-ink:#0e0f11;
+    --bg:#0b0c0e; --glass:rgba(19,21,25,.58); --glass-strong:rgba(19,21,25,.74);
+    --ink:#f5f4f0; --body:#d8d7d1; --muted:#aaa8a1; --line:rgba(245,244,240,.10);
+    --accent:#e9b949; --accent-deep:#c89a33; --accent-soft:rgba(233,185,73,.14);
+    --accent-ink:#0e0f11;
     --hl:rgba(245,244,240,.18);      /* off-white specular highlight, never pure white */
-    --hl-soft:rgba(245,244,240,.10);
-    --shadow:0 12px 40px rgba(8,9,11,.5);
+    --hl-soft:rgba(245,244,240,.08);
+    --shadow:0 16px 48px rgba(8,9,11,.5);
     --ease:cubic-bezier(.16,1,.3,1);
+    --r-card:20px; --r-term:16px;
     --maxw:1180px;
   }
   *{box-sizing:border-box}
@@ -25,36 +27,66 @@
     margin:0; background:var(--bg); color:var(--body);
     font-family:"Space Grotesk","Noto Sans KR", ui-sans-serif, system-ui, sans-serif;
     line-height:1.6; -webkit-font-smoothing:antialiased; padding-bottom:120px;
+    overflow-x:hidden;
   }
-  /* Korean: CJK face first, break only at word (어절) boundaries, never mid-word. */
+  /* Korean: CJK face first, break only at word (eojeol) boundaries, never mid-word. */
   html[lang="ko"] body{ font-family:"Noto Sans KR","Space Grotesk", ui-sans-serif, system-ui, sans-serif; word-break:keep-all; }
-  html[lang="ko"] .term pre{ word-break:normal; }
+  html[lang="ko"] .term pre, html[lang="ko"] .mq{ word-break:normal; }
   a{color:inherit; text-decoration:none}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
   .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
   .accent{color:var(--accent)}
   .eyebrow{font-size:.78rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:600}
+  .eyebrow::before{content:""; display:inline-block; width:18px; height:1px; background:var(--accent); vertical-align:middle; margin-right:10px; opacity:.7}
 
-  /* Aurora depth so the glass has something to refract. No purple. */
+  /* Serif contrast words: Newsreader italic + gold gradient (text-mask, single accent family). */
+  .serif{
+    font-family:"Newsreader", Georgia, serif; font-style:italic; font-weight:500; letter-spacing:0;
+    background:linear-gradient(115deg, #f3cf6f 8%, var(--accent) 48%, var(--accent-deep) 95%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    padding-right:.04em; /* italic overhang clip guard */
+  }
+  /* Hangul has no italic tradition and Newsreader has no Hangul glyphs: same gradient, upright sans. */
+  html[lang="ko"] .serif{ font-family:"Noto Sans KR", sans-serif; font-style:normal; font-weight:700; padding-right:0 }
+
+  /* Depth stack: aurora (z -3) under generated backdrop art (z -2) under vignette, grain film on top. */
   body::before{
-    content:""; position:fixed; inset:-10%; z-index:-1; pointer-events:none;
+    content:""; position:fixed; inset:-12%; z-index:-3; pointer-events:none;
     background:
       radial-gradient(38% 46% at 14% 8%, rgba(63,184,175,.20), transparent 70%),
       radial-gradient(44% 44% at 86% 12%, rgba(74,144,217,.18), transparent 70%),
-      radial-gradient(50% 50% at 78% 84%, rgba(233,185,73,.14), transparent 72%),
+      radial-gradient(50% 50% at 78% 84%, rgba(233,185,73,.15), transparent 72%),
       radial-gradient(42% 42% at 18% 92%, rgba(224,138,110,.12), transparent 72%);
     filter:saturate(120%);
+    animation:auroraDrift 28s ease-in-out infinite;
+  }
+  @keyframes auroraDrift{
+    0%,100%{transform:translate3d(0,0,0) scale(1)}
+    50%{transform:translate3d(-1.6%,1.2%,0) scale(1.05)}
+  }
+  .backdrop{position:fixed; inset:0; z-index:-2; pointer-events:none; overflow:hidden}
+  .backdrop img{width:100%; height:100%; object-fit:cover; opacity:.52; filter:saturate(112%)}
+  .backdrop::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(8,9,11,.55), rgba(8,9,11,.22) 28%, rgba(8,9,11,.58) 72%, rgba(11,12,14,.94));
+  }
+  /* Film grain: procedural feTurbulence tile, simple decorative geometry by rule. */
+  .grain{
+    position:fixed; inset:0; z-index:90; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="2" stitchTiles="stitch"/></filter><rect width="160" height="160" filter="url(%23n)" opacity="0.55"/></svg>');
   }
 
   /* Liquid Glass material */
   .glass{
     background:var(--glass);
-    -webkit-backdrop-filter:blur(22px) saturate(165%);
-    backdrop-filter:blur(22px) saturate(165%);
+    -webkit-backdrop-filter:blur(24px) saturate(160%);
+    backdrop-filter:blur(24px) saturate(160%);
     border:1px solid var(--line);
     box-shadow:inset 0 1px 0 var(--hl), inset 0 -1px 0 rgba(8,9,11,.4), var(--shadow);
   }
   @media (prefers-reduced-transparency:reduce){
     .glass{ background:rgba(22,24,27,.97); -webkit-backdrop-filter:none; backdrop-filter:none; }
+    .backdrop{display:none}
   }
 
   /* Floating top bar (glass capsule) */
@@ -63,80 +95,138 @@
   .brand{font-weight:700; color:var(--ink); font-size:1.05rem; letter-spacing:-.01em}
   .brand b{color:var(--accent)}
   .top-right{display:flex; gap:10px; align-items:center}
-  .pill{border:1px solid var(--line); padding:8px 15px; border-radius:999px; color:var(--ink); font-size:.88rem; background:var(--hl-soft); transition:border-color .2s var(--ease), transform .2s var(--ease)}
+  .pill{border:1px solid var(--line); padding:10px 16px; border-radius:999px; color:var(--ink); font-size:.88rem; background:var(--hl-soft); transition:border-color .2s var(--ease), transform .2s var(--ease)}
   .pill:hover{border-color:rgba(233,185,73,.55); transform:translateY(-1px)}
   .lang{cursor:pointer; font-family:inherit; min-width:80px; text-align:center}
 
-  /* Floating bottom dock (Apple-style tab bar you click) */
+  /* Floating bottom dock with magnification on hover */
   .dock{position:fixed; left:50%; bottom:20px; transform:translateX(-50%); z-index:60; display:flex; gap:4px; padding:6px; border-radius:999px}
-  .dock a{position:relative; padding:11px 18px; border-radius:999px; color:var(--muted); font-size:.9rem; font-weight:500; white-space:nowrap; transition:color .25s var(--ease)}
-  .dock a:hover{color:var(--ink)}
+  .dock a{position:relative; padding:11px 18px; border-radius:999px; color:var(--muted); font-size:.9rem; font-weight:500; white-space:nowrap; transition:color .25s var(--ease), transform .3s var(--ease)}
+  .dock a:hover{color:var(--ink); transform:translateY(-3px) scale(1.07)}
+  .dock a:has(+ a:hover), .dock a:hover + a{transform:translateY(-1px) scale(1.03)}
   .dock a.active{color:var(--accent-ink); background:var(--accent); box-shadow:inset 0 1px 0 rgba(255,247,224,.45), 0 6px 18px rgba(233,185,73,.35)}
   @media (max-width:560px){ .dock a{padding:10px 13px; font-size:.84rem} .dock{gap:2px; padding:5px} }
 
-  .hero{padding:150px 0 64px; display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center}
-  .hero h1{font-size:clamp(2.4rem,5.2vw,4rem); line-height:1.04; letter-spacing:-.03em; color:var(--ink); margin:.6rem 0 0; font-weight:700}
-  .hero p.lede{font-size:1.15rem; color:var(--body); max-width:36ch; margin:1.2rem 0 0}
-  .cta-row{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap}
-  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:14px; font-weight:600; font-size:.96rem; transition:transform .25s var(--ease), box-shadow .25s var(--ease)}
+  /* Hero: staged entrance, kinetic display type, terminal artifact */
+  .hero{padding:148px 0 36px; display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; min-height:88dvh}
+  .hero h1{font-size:clamp(2.6rem,5.8vw,4.5rem); line-height:1.03; letter-spacing:-.035em; color:var(--ink); margin:.6rem 0 0; font-weight:700}
+  .hero p.lede{font-size:1.16rem; color:var(--body); max-width:38ch; margin:1.25rem 0 0}
+  [data-stage]{opacity:0; transform:translateY(18px); animation:rise .85s var(--ease) forwards; animation-delay:calc(var(--i, 0) * 110ms)}
+  @keyframes rise{to{opacity:1; transform:none}}
+  .cta-row{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap}
+  .btn{position:relative; overflow:hidden; display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:14px; font-weight:600; font-size:.96rem; transition:transform .25s var(--ease), box-shadow .25s var(--ease)}
   .btn-primary{background:var(--accent); color:var(--accent-ink); box-shadow:inset 0 1px 0 rgba(255,247,224,.45), 0 8px 24px rgba(233,185,73,.3)}
+  .btn-primary::after{content:""; position:absolute; top:0; bottom:0; left:-60%; width:40%; transform:skewX(-18deg); background:linear-gradient(90deg, transparent, rgba(255,247,224,.5), transparent); transition:left .55s var(--ease)}
   .btn-primary:hover{transform:translateY(-2px)}
+  .btn-primary:hover::after{left:120%}
   .btn-ghost{color:var(--ink)}
   .btn-ghost:hover{transform:translateY(-2px)}
 
-  .term{border-radius:16px; overflow:hidden}
+  .term{border-radius:var(--r-term); overflow:hidden}
   .term-bar{display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--line)}
   .dot{width:11px; height:11px; border-radius:50%}
   .dot.a{background:#e0685f} .dot.b{background:#e9b949} .dot.c{background:#7bbf6a}
-  .term-title{margin-left:8px; font-size:.82rem; color:var(--muted)}
-  .term pre{margin:0; padding:20px; font-family:"Newsreader", ui-monospace, monospace; font-size:.86rem; line-height:1.7; color:var(--body); overflow-x:auto; font-feature-settings:"tnum"}
+  .term-title{margin-left:8px; font-size:.82rem; color:var(--muted); font-family:"JetBrains Mono", ui-monospace, monospace}
+  .term pre{margin:0; padding:20px; font-family:"JetBrains Mono", ui-monospace, "SF Mono", monospace; font-size:.84rem; line-height:1.75; color:var(--body); overflow-x:auto; font-feature-settings:"tnum"}
   .term .ok{color:#9fd68b} .term .bad{color:#f0a39b} .term .dim{color:var(--muted)}
+  /* Output streams in line by line, like a real run. */
+  .tline{display:block; opacity:0; animation:lineIn .01s steps(1) forwards; animation-delay:var(--t, 0s)}
+  @keyframes lineIn{to{opacity:1}}
+  .caret::after{content:""; display:inline-block; width:.55em; height:1.05em; margin-left:2px; vertical-align:text-bottom; background:var(--accent); animation:blink 1.1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  /* Real-number stats strip */
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin:26px 0 0; border-top:1px solid var(--line)}
+  .stat{padding:22px 8px 0; border-left:1px solid var(--line)}
+  .stat:first-child{border-left:none; padding-left:0}
+  .stat:not(:first-child){padding-left:22px}
+  .stat .n{font-family:"Newsreader", Georgia, serif; font-style:italic; font-weight:500; font-size:2.3rem; color:var(--ink); line-height:1}
+  .stat .n em{font-style:inherit; color:var(--accent)}
+  .stat p{margin:.45rem 0 0; font-size:.85rem; color:var(--muted); letter-spacing:.02em}
+  @media (max-width:820px){ .stats{grid-template-columns:1fr 1fr; row-gap:24px} .stat:nth-child(3){border-left:none; padding-left:0} }
+
+  /* Marquee: the gate's real detector ids. One marquee max, pauses on hover. */
+  .mq-wrap{padding:38px 0 8px}
+  .mq-label{font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0 0 14px}
+  .mq{overflow:hidden; -webkit-mask-image:linear-gradient(90deg, transparent, #0b0c0e 9%, #0b0c0e 91%, transparent); mask-image:linear-gradient(90deg, transparent, #0b0c0e 9%, #0b0c0e 91%, transparent)}
+  .mq-track{display:flex; gap:12px; width:max-content; animation:mq 38s linear infinite}
+  .mq:hover .mq-track{animation-play-state:paused}
+  @keyframes mq{to{transform:translateX(-50%)}}
+  .chip{display:inline-flex; align-items:center; gap:9px; padding:9px 16px; border:1px solid var(--line); border-radius:999px; background:var(--hl-soft); font-family:"JetBrains Mono", ui-monospace, monospace; font-size:.82rem; color:var(--body); white-space:nowrap}
+  .chip::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--accent)}
 
   section{padding:64px 0}
-  .sec-head{max-width:48ch}
-  .sec-head h2{font-size:clamp(1.7rem,3.2vw,2.4rem); color:var(--ink); letter-spacing:-.02em; margin:.5rem 0 0; font-weight:700}
+  .sec-head{max-width:52ch}
+  .sec-head h2{font-size:clamp(1.8rem,3.4vw,2.5rem); color:var(--ink); letter-spacing:-.025em; margin:.5rem 0 0; font-weight:700}
   .sec-head p{color:var(--muted); margin:.8rem 0 0}
 
+  /* Bento: asymmetric 6-col grid, ghost numerals, pointer spotlight */
   .bento{display:grid; grid-template-columns:repeat(6,1fr); gap:16px; margin-top:40px}
-  .card{border-radius:18px; padding:24px}
-  .card h3{margin:0; color:var(--ink); font-size:1.12rem; letter-spacing:-.01em}
+  .card{position:relative; overflow:hidden; border-radius:var(--r-card); padding:26px 24px 24px; transition:border-color .3s var(--ease), transform .3s var(--ease)}
+  .card h3{margin:0; color:var(--ink); font-size:1.12rem; letter-spacing:-.01em; position:relative}
   .card .tag{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:600}
-  .card p{margin:.5rem 0 0; font-size:.95rem; color:var(--muted)}
-  .card.lg{grid-column:span 3} .card.md{grid-column:span 3} .card.sm{grid-column:span 2}
-  .card:hover{border-color:rgba(233,185,73,.35)}
-  @media (max-width:900px){ .bento{grid-template-columns:1fr 1fr} .card.lg,.card.md,.card.sm{grid-column:span 1} }
+  .card p{margin:.5rem 0 0; font-size:.95rem; color:var(--muted); max-width:44ch; position:relative}
+  .card .gnum{position:absolute; right:16px; top:2px; font-family:"Newsreader", Georgia, serif; font-style:italic; font-size:3.6rem; line-height:1.4; color:rgba(245,244,240,.07); user-select:none; pointer-events:none}
+  .card::after{content:""; position:absolute; inset:0; border-radius:inherit; opacity:0; pointer-events:none; transition:opacity .35s var(--ease);
+    background:radial-gradient(240px circle at var(--mx,50%) var(--my,40%), rgba(233,185,73,.13), transparent 65%)}
+  .card:hover{border-color:rgba(233,185,73,.35); transform:translateY(-2px)}
+  .card:hover::after{opacity:1}
+  .card.s4{grid-column:span 4} .card.s3{grid-column:span 3} .card.s2{grid-column:span 2}
+  @media (max-width:900px){ .bento{grid-template-columns:1fr 1fr} .card.s4,.card.s3,.card.s2{grid-column:span 1} }
   @media (max-width:560px){ .bento{grid-template-columns:1fr} }
 
+  /* Loop: role-tagged steps, serif numerals */
   .loop{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:40px}
-  .step{border-radius:16px; padding:20px}
-  .step .n{font-family:"Newsreader",serif; font-size:1.3rem; color:var(--accent); font-style:italic}
-  .step h4{margin:.2rem 0 0; color:var(--ink); font-size:1.02rem}
+  .step{position:relative; border-radius:var(--r-term); padding:22px 20px}
+  .step .n{font-family:"Newsreader", Georgia, serif; font-size:1.7rem; color:var(--accent); font-style:italic; line-height:1}
+  .step h3{margin:.45rem 0 0; color:var(--ink); font-size:1.02rem}
   .step p{margin:.35rem 0 0; font-size:.92rem; color:var(--muted)}
+  .role{position:absolute; top:20px; right:18px; font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:4px 10px}
+  .role.critic{color:var(--accent); border-color:rgba(233,185,73,.4)}
   @media (max-width:820px){ .loop{grid-template-columns:1fr} }
 
-  .gate-grid{display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:center; margin-top:36px}
-  .gate-list{list-style:none; padding:6px 4px; margin:0; border-radius:16px}
+  .gate-grid{display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; margin-top:36px}
+  .gate-list{list-style:none; padding:6px 4px; margin:0; border-radius:var(--r-term)}
   .gate-list li{padding:13px 18px; border-bottom:1px solid var(--line); color:var(--body); font-size:.96rem; display:flex; gap:12px}
   .gate-list li:last-child{border-bottom:none}
   .gate-list li .k{color:var(--accent); font-weight:600; white-space:nowrap}
+  .proof{margin-top:14px; font-size:.85rem; color:var(--muted)}
+  .proof b{color:var(--accent); font-weight:600}
   @media (max-width:820px){ .gate-grid{grid-template-columns:1fr} }
 
   footer{margin-top:24px; padding:40px 0; color:var(--muted); font-size:.9rem}
   .foot-row{display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap}
+  .foot-note{margin-top:14px; font-size:.84rem; color:var(--muted); max-width:62ch}
   footer a:hover{color:var(--ink)}
   footer b{color:var(--accent)}
 
-  .reveal{opacity:0; transform:translateY(14px); transition:opacity .7s var(--ease), transform .7s var(--ease)}
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .7s var(--ease), transform .7s var(--ease); transition-delay:var(--d, 0s)}
   .reveal.in{opacity:1; transform:none}
+
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     .reveal{opacity:1; transform:none; transition:none}
-    .btn:hover,.pill:hover,.card:hover{transform:none}
+    [data-stage]{opacity:1; transform:none; animation:none}
+    .tline{opacity:1; animation:none}
+    .caret::after{animation:none}
+    .mq-track{animation:none; flex-wrap:wrap; width:auto}
+    body::before{animation:none}
+    .btn-primary::after{display:none}
+    .btn:hover,.pill:hover,.card:hover,.dock a:hover{transform:none}
+  }
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr; gap:36px; min-height:0; padding-top:128px}
+    .hero p.lede{max-width:56ch}
   }
   section[id]{scroll-margin-top:96px}
 </style>
 </head>
 <body>
+
+<div class="backdrop" aria-hidden="true">
+  <img src="assets/hero-aurora.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" onerror="this.parentNode.removeChild(this)">
+</div>
+<div class="grain" aria-hidden="true"></div>
 
 <div class="topbar glass">
   <div class="top-row">
@@ -156,29 +246,36 @@
 </nav>
 
 <header class="hero wrap" id="top">
-  <div class="reveal">
-    <span class="eyebrow" data-en="Claude Code skill" data-ko="Claude Code 스킬">Claude Code skill</span>
-    <h1 data-en-html='Design anything, on the <span class="accent">current</span> trend, with elegance.' data-ko-html='무엇이든 <span class="accent">지금</span> 트렌드로, 우아하게 디자인합니다.'>Design anything, on the <span class="accent">current</span> trend, with elegance.</h1>
-    <p class="lede" data-en="Read the intent, pulse what is current, route to the aesthetic that fits, and ship UI that passes a gate, not a vibe check." data-ko="의도를 먼저 읽고, 지금의 트렌드를 살핀 뒤, 어울리는 미감으로 방향을 잡습니다. 느낌이 아니라 게이트로 검증한 UI를 내놓습니다.">Read the intent, pulse what is current, route to the aesthetic that fits, and ship UI that passes a gate, not a vibe check.</p>
-    <div class="cta-row">
+  <div>
+    <span class="eyebrow" data-stage style="--i:0" data-en="Claude Code skill" data-ko="Claude Code 스킬">Claude Code skill</span>
+    <h1 data-stage style="--i:1" data-en-html='Design anything, on the <span class="serif">current</span> trend, with <span class="serif">elegance</span>.' data-ko-html='무엇이든 <span class="serif">지금</span> 트렌드로, <span class="serif">우아하게</span> 디자인합니다.'>Design anything, on the <span class="serif">current</span> trend, with <span class="serif">elegance</span>.</h1>
+    <p class="lede" data-stage style="--i:2" data-en="Read the intent, pulse what is current, route to the aesthetic that fits, and ship UI that passes a gate, not a vibe check." data-ko="의도를 먼저 읽고, 지금의 트렌드를 살핀 뒤, 어울리는 미감으로 방향을 잡습니다. 느낌이 아니라 게이트로 검증한 UI를 내놓습니다.">Read the intent, pulse what is current, route to the aesthetic that fits, and ship UI that passes a gate, not a vibe check.</p>
+    <div class="cta-row" data-stage style="--i:3">
       <a class="btn btn-primary" href="#install" data-en="Install the skill" data-ko="스킬 설치하기">Install the skill</a>
       <a class="btn btn-ghost pill" href="#gate" data-en="See the gate" data-ko="게이트 살펴보기">See the gate</a>
     </div>
+    <div class="stats" data-stage style="--i:4">
+      <div class="stat"><div class="n">6</div><p data-en="intent-routed modes" data-ko="의도로 나뉘는 모드">intent-routed modes</p></div>
+      <div class="stat"><div class="n">5</div><p data-en="aesthetic families" data-ko="미감 패밀리">aesthetic families</p></div>
+      <div class="stat"><div class="n">9</div><p data-en="slop detectors" data-ko="슬롭 디텍터">slop detectors</p></div>
+      <div class="stat"><div class="n">2</div><p data-en="deterministic gates" data-ko="결정적 게이트">deterministic gates</p></div>
+    </div>
   </div>
-  <div class="reveal term glass" aria-label="example anti-slop gate output">
+  <div class="term glass" data-stage style="--i:2" aria-label="example anti-slop gate output">
     <div class="term-bar"><span class="dot a"></span><span class="dot b"></span><span class="dot c"></span><span class="term-title">anti-slop-gate.mjs</span></div>
-<pre><span class="dim">$ node anti-slop-gate.mjs hero.html</span>
-== ANTI-SLOP GATE: <span class="bad">FAIL</span> ==
-hero.html:7  <span class="bad">[ai-purple]</span>   lock a deliberate accent
-hero.html:7  <span class="bad">[inter-default]</span> avoid Inter as default
-hero.html:9  <span class="bad">[filler-verb]</span>  rewrite the filler verb
-hero.html:9  <span class="bad">[em-dash]</span>      use hyphen or colon
-
-<span class="dim"># fix the design, re-run</span>
-== ANTI-SLOP GATE: <span class="ok">PASS</span> == <span class="dim">(1 file)</span>
-</pre>
+<pre><span class="tline" style="--t:.5s"><span class="dim">$ node anti-slop-gate.mjs hero.html</span></span><span class="tline" style="--t:1s">== ANTI-SLOP GATE: <span class="bad">FAIL</span> ==</span><span class="tline" style="--t:1.2s">hero.html:7  <span class="bad">[ai-purple]</span>   lock a deliberate accent</span><span class="tline" style="--t:1.4s">hero.html:7  <span class="bad">[inter-default]</span> avoid Inter as default</span><span class="tline" style="--t:1.6s">hero.html:9  <span class="bad">[filler-verb]</span>  rewrite the filler verb</span><span class="tline" style="--t:1.8s">hero.html:9  <span class="bad">[em-dash]</span>      use hyphen or colon</span><span class="tline" style="--t:2.2s"> </span><span class="tline" style="--t:2.4s"><span class="dim"># fix the design, re-run</span></span><span class="tline caret" style="--t:2.9s">== ANTI-SLOP GATE: <span class="ok">PASS</span> == <span class="dim">(1 file(s))</span></span></pre>
   </div>
 </header>
+
+<div class="mq-wrap wrap reveal">
+  <p class="mq-label" data-en="What the gate greps for" data-ko="게이트가 잡아내는 것들">What the gate greps for</p>
+  <div class="mq">
+    <div class="mq-track">
+      <span class="chip">em-dash</span><span class="chip">ai-purple</span><span class="chip">inter-default</span><span class="chip">bounce-easing</span><span class="chip">pure-bw</span><span class="chip">black-shadow</span><span class="chip">placeholder-name</span><span class="chip">filler-verb</span><span class="chip">scroll-listener</span><span class="chip">wcag-contrast</span>
+      <span class="chip" aria-hidden="true">em-dash</span><span class="chip" aria-hidden="true">ai-purple</span><span class="chip" aria-hidden="true">inter-default</span><span class="chip" aria-hidden="true">bounce-easing</span><span class="chip" aria-hidden="true">pure-bw</span><span class="chip" aria-hidden="true">black-shadow</span><span class="chip" aria-hidden="true">placeholder-name</span><span class="chip" aria-hidden="true">filler-verb</span><span class="chip" aria-hidden="true">scroll-listener</span><span class="chip" aria-hidden="true">wcag-contrast</span>
+    </div>
+  </div>
+</div>
 
 <section id="modes">
   <div class="wrap">
@@ -188,12 +285,13 @@ hero.html:9  <span class="bad">[em-dash]</span>      use hyphen or colon
       <p data-en="No single house style. The intent decides the mode, the medium, and the aesthetic family." data-ko="정해진 하우스 스타일은 없습니다. 의도가 모드와 매체, 그리고 미감 패밀리를 정합니다.">No single house style. The intent decides the mode, the medium, and the aesthetic family.</p>
     </div>
     <div class="bento">
-      <div class="card glass lg reveal"><span class="tag">Create</span><h3 data-en="New UI from scratch" data-ko="처음부터 새 UI">New UI from scratch</h3><p data-en="Landing, app, screen. Brief to elegant build through the full design loop." data-ko="랜딩, 앱, 화면까지. 브리프에서 시작해 전체 흐름을 거쳐 우아한 결과물로 이어집니다.">Landing, app, screen. Brief to elegant build through the full design loop.</p></div>
-      <div class="card glass md reveal"><span class="tag">Redesign</span><h3 data-en="Modernize what exists" data-ko="기존 화면 현대화">Modernize what exists</h3><p data-en="Audit first, preserve brand and SEO, then recompose with current craft." data-ko="먼저 진단하고, 브랜드와 SEO를 지킨 뒤 최신 감각으로 다시 구성합니다.">Audit first, preserve brand and SEO, then recompose with current craft.</p></div>
-      <div class="card glass sm reveal"><span class="tag">System</span><h3 data-en="Tokens and theme" data-ko="토큰과 테마">Tokens and theme</h3><p data-en="Color, type, spacing, radius, light and dark." data-ko="색상, 타이포, 간격, 라운드, 라이트와 다크까지.">Color, type, spacing, radius, light and dark.</p></div>
-      <div class="card glass sm reveal"><span class="tag">Critique</span><h3 data-en="Review only" data-ko="리뷰 전용">Review only</h3><p data-en="Run the detectors on code or a URL, get findings." data-ko="코드나 URL에 디텍터를 돌려 문제점을 짚어 줍니다.">Run the detectors on code or a URL, get findings.</p></div>
-      <div class="card glass sm reveal"><span class="tag">Explore</span><h3 data-en="Divergent directions" data-ko="방향 탐색">Divergent directions</h3><p data-en="Two to four real options, commit to none." data-ko="실제 방향 두세 가지를 보여 주고, 아직 하나로 정하지 않습니다.">Two to four real options, commit to none.</p></div>
-      <div class="card glass lg reveal"><span class="tag">Asset</span><h3 data-en="Images, icons, marks" data-ko="이미지, 아이콘, 마크">Images, icons, marks</h3><p data-en="A fallback chain from generation to real SVG to a flagged placeholder. Never a faked screenshot." data-ko="생성부터 실제 SVG, 표시된 플레이스홀더로 이어지는 폴백 체인입니다. 가짜 스크린샷은 쓰지 않습니다.">A fallback chain from generation to real SVG to a flagged placeholder. Never a faked screenshot.</p></div>
+      <div class="card glass s4 reveal"><span class="gnum">01</span><span class="tag">Create</span><h3 data-en="New UI from scratch" data-ko="처음부터 새 UI">New UI from scratch</h3><p data-en="Landing, app, screen. Brief to elegant build through the full design loop." data-ko="랜딩, 앱, 화면까지. 브리프에서 시작해 전체 흐름을 거쳐 우아한 결과물로 이어집니다.">Landing, app, screen. Brief to elegant build through the full design loop.</p></div>
+      <div class="card glass s2 reveal" style="--d:.07s"><span class="gnum">02</span><span class="tag">Redesign</span><h3 data-en="Modernize what exists" data-ko="기존 화면 현대화">Modernize what exists</h3><p data-en="Audit first, preserve brand and SEO, then recompose." data-ko="먼저 진단하고, 브랜드와 SEO를 지킨 뒤 다시 구성합니다.">Audit first, preserve brand and SEO, then recompose.</p></div>
+      <div class="card glass s2 reveal"><span class="gnum">03</span><span class="tag">System</span><h3 data-en="Tokens and theme" data-ko="토큰과 테마">Tokens and theme</h3><p data-en="Color, type, spacing, radius, light and dark." data-ko="색상, 타이포, 간격, 라운드, 라이트와 다크까지.">Color, type, spacing, radius, light and dark.</p></div>
+      <div class="card glass s2 reveal" style="--d:.07s"><span class="gnum">04</span><span class="tag">Critique</span><h3 data-en="Review only" data-ko="리뷰 전용">Review only</h3><p data-en="Run the detectors on code or a URL, get findings." data-ko="코드나 URL에 디텍터를 돌려 문제점을 짚어 줍니다.">Run the detectors on code or a URL, get findings.</p></div>
+      <div class="card glass s2 reveal" style="--d:.14s"><span class="gnum">05</span><span class="tag">Explore</span><h3 data-en="Divergent directions" data-ko="방향 탐색">Divergent directions</h3><p data-en="Two to four real options, commit to none." data-ko="실제 방향 두세 가지를 보여 주고, 아직 하나로 정하지 않습니다.">Two to four real options, commit to none.</p></div>
+      <div class="card glass s3 reveal"><span class="gnum">06</span><span class="tag">Asset</span><h3 data-en="Images, icons, marks" data-ko="이미지, 아이콘, 마크">Images, icons, marks</h3><p data-en="A fallback chain from generation to real SVG to a flagged placeholder. Never a faked screenshot." data-ko="생성부터 실제 SVG, 표시된 플레이스홀더로 이어지는 폴백 체인입니다. 가짜 스크린샷은 쓰지 않습니다.">A fallback chain from generation to real SVG to a flagged placeholder. Never a faked screenshot.</p></div>
+      <div class="card glass s3 reveal" style="--d:.07s"><span class="gnum">+</span><span class="tag">Vault</span><h3 data-en="One work dir per surface" data-ko="표면마다 작업 폴더 하나">One work dir per surface</h3><p data-en="design-brief, trend-pulse, claims, contrast-pairs. No vault, no gate." data-ko="design-brief, trend-pulse, claims, contrast-pairs. 볼트가 없으면 게이트도 없습니다.">design-brief, trend-pulse, claims, contrast-pairs. No vault, no gate.</p></div>
     </div>
   </div>
 </section>
@@ -206,12 +304,12 @@ hero.html:9  <span class="bad">[em-dash]</span>      use hyphen or colon
       <p data-en="Author independence: the build never grades its own work." data-ko="역할은 서로 독립적입니다. 만든 쪽이 자기 작업을 스스로 통과시키지 않습니다.">Author independence: the build never grades its own work.</p>
     </div>
     <div class="loop">
-      <div class="step glass reveal"><div class="n">1</div><h4 data-en="Read the brief" data-ko="브리프 읽기">Read the brief</h4><p data-en="Kind, audience, brand, constraints. Stated in one line." data-ko="종류, 대상, 브랜드, 제약을 한 줄로 정리합니다.">Kind, audience, brand, constraints. Stated in one line.</p></div>
-      <div class="step glass reveal"><div class="n">2</div><h4 data-en="Pulse trends" data-ko="트렌드 살피기">Pulse trends</h4><p data-en="Live search, dated snapshot fallback. Only trends that serve the brief." data-ko="실시간 검색을 기본으로 하고, 날짜가 적힌 스냅샷으로 대체합니다. 브리프에 맞는 트렌드만 고릅니다.">Live search, dated snapshot fallback. Only trends that serve the brief.</p></div>
-      <div class="step glass reveal"><div class="n">3</div><h4 data-en="Set direction" data-ko="방향 잡기">Set direction</h4><p data-en="Three dials, one system or family, the medium." data-ko="다이얼 세 개, 시스템이나 패밀리 하나, 그리고 매체를 정합니다.">Three dials, one system or family, the medium.</p></div>
-      <div class="step glass reveal"><div class="n">4</div><h4 data-en="Build" data-ko="만들기">Build</h4><p data-en="To the visual authority, with real assets and computed contrast." data-ko="정해진 시각 기준에 맞춰, 실제 에셋과 계산된 대비로 만듭니다.">To the visual authority, with real assets and computed contrast.</p></div>
-      <div class="step glass reveal"><div class="n">5</div><h4 data-en="Critique" data-ko="비평">Critique</h4><p data-en="Independent. Runs the detectors, logs every violation." data-ko="독립적으로 디텍터를 돌려 모든 위반을 기록합니다.">Independent. Runs the detectors, logs every violation.</p></div>
-      <div class="step glass reveal"><div class="n">6</div><h4 data-en="Verify" data-ko="검증">Verify</h4><p data-en="Fix, re-run the gate until green, report with output." data-ko="고치고, 통과할 때까지 다시 돌린 뒤 결과와 함께 보고합니다.">Fix, re-run the gate until green, report with output.</p></div>
+      <div class="step glass reveal"><span class="role" data-en="Designer" data-ko="디자이너">Designer</span><div class="n">1</div><h3 data-en="Read the brief" data-ko="브리프 읽기">Read the brief</h3><p data-en="Kind, audience, brand, constraints. Stated in one line." data-ko="종류, 대상, 브랜드, 제약을 한 줄로 정리합니다.">Kind, audience, brand, constraints. Stated in one line.</p></div>
+      <div class="step glass reveal" style="--d:.07s"><span class="role" data-en="Designer" data-ko="디자이너">Designer</span><div class="n">2</div><h3 data-en="Pulse trends" data-ko="트렌드 살피기">Pulse trends</h3><p data-en="Live search, dated snapshot fallback. Only trends that serve the brief." data-ko="실시간 검색을 기본으로 하고, 날짜가 적힌 스냅샷으로 대체합니다. 브리프에 맞는 트렌드만 고릅니다.">Live search, dated snapshot fallback. Only trends that serve the brief.</p></div>
+      <div class="step glass reveal" style="--d:.14s"><span class="role" data-en="Designer" data-ko="디자이너">Designer</span><div class="n">3</div><h3 data-en="Set direction" data-ko="방향 잡기">Set direction</h3><p data-en="Three dials, one system or family, the medium." data-ko="다이얼 세 개, 시스템이나 패밀리 하나, 그리고 매체를 정합니다.">Three dials, one system or family, the medium.</p></div>
+      <div class="step glass reveal"><span class="role" data-en="Designer" data-ko="디자이너">Designer</span><div class="n">4</div><h3 data-en="Build" data-ko="만들기">Build</h3><p data-en="To the visual authority, with real assets and computed contrast." data-ko="정해진 시각 기준에 맞춰, 실제 에셋과 계산된 대비로 만듭니다.">To the visual authority, with real assets and computed contrast.</p></div>
+      <div class="step glass reveal" style="--d:.07s"><span class="role critic" data-en="Critic" data-ko="비평가">Critic</span><div class="n">5</div><h3 data-en="Critique" data-ko="비평">Critique</h3><p data-en="Independent. Runs the detectors, logs every violation." data-ko="독립적으로 디텍터를 돌려 모든 위반을 기록합니다.">Independent. Runs the detectors, logs every violation.</p></div>
+      <div class="step glass reveal" style="--d:.14s"><span class="role critic" data-en="Gate" data-ko="게이트">Gate</span><div class="n">6</div><h3 data-en="Verify" data-ko="검증">Verify</h3><p data-en="Fix, re-run the gate until green, report with output." data-ko="고치고, 통과할 때까지 다시 돌린 뒤 결과와 함께 보고합니다.">Fix, re-run the gate until green, report with output.</p></div>
     </div>
   </div>
 </section>
@@ -224,23 +322,28 @@ hero.html:9  <span class="bad">[em-dash]</span>      use hyphen or colon
       <p data-en="The predictable AI tells are grep-able. The script computes the verdict so a silent slop pattern cannot pass." data-ko="흔한 AI 티는 grep으로 잡아냅니다. 스크립트가 합격 여부를 직접 계산하니, 눈에 띄지 않는 슬롭도 통과하지 못합니다.">The predictable AI tells are grep-able. The script computes the verdict so a silent slop pattern cannot pass.</p>
     </div>
     <div class="gate-grid">
-      <ul class="gate-list glass reveal">
-        <li><span class="k">em / en dash</span><span data-en="banned as a separator in visible text" data-ko="본문에서 구분자로 쓰면 차단">banned as a separator in visible text</span></li>
-        <li><span class="k">AI-purple</span><span data-en="flagged as a default accent" data-ko="기본 액센트로 쓰면 차단">flagged as a default accent</span></li>
-        <li><span class="k">Inter default</span><span data-en="flagged unless a justified neutral read" data-ko="중립 콘셉트라는 근거가 없으면 차단">flagged unless a justified neutral read</span></li>
-        <li><span class="k">bounce easing</span><span data-en="overshoot cubic-bezier caught by math" data-ko="오버슈트 cubic-bezier를 수식으로 검출">overshoot cubic-bezier caught by math</span></li>
-        <li><span class="k">pure black/white</span><span data-en="tint to off-black and off-white" data-ko="순수 흑백 대신 오프블랙·오프화이트로">tint to off-black and off-white</span></li>
-        <li><span class="k">WCAG contrast</span><span data-en="computed per text and background pair" data-ko="텍스트와 배경 쌍마다 직접 계산">computed per text and background pair</span></li>
-      </ul>
-      <div class="term glass reveal" aria-label="run the full pre-flight">
-        <div class="term-bar"><span class="dot a"></span><span class="dot b"></span><span class="dot c"></span><span class="term-title">preflight-gate.sh</span></div>
-<pre><span class="dim"># scan any built UI</span>
-node anti-slop-gate.mjs index.html
-<span class="dim"># contrast on enumerated pairs</span>
-node contrast-gate.mjs pairs.json
-<span class="dim"># full pre-flight on a surface</span>
-bash preflight-gate.sh vault index.html
-
+      <div class="reveal">
+        <ul class="gate-list glass">
+          <li><span class="k">em / en dash</span><span data-en="banned as a separator in visible text" data-ko="본문에서 구분자로 쓰면 차단">banned as a separator in visible text</span></li>
+          <li><span class="k">AI-purple</span><span data-en="flagged as a default accent" data-ko="기본 액센트로 쓰면 차단">flagged as a default accent</span></li>
+          <li><span class="k">Inter default</span><span data-en="flagged unless a justified neutral read" data-ko="중립 콘셉트라는 근거가 없으면 차단">flagged unless a justified neutral read</span></li>
+          <li><span class="k">bounce easing</span><span data-en="overshoot cubic-bezier caught by math" data-ko="오버슈트 cubic-bezier를 수식으로 검출">overshoot cubic-bezier caught by math</span></li>
+          <li><span class="k">pure black/white</span><span data-en="tint to off-black and off-white" data-ko="순수 흑백 대신 오프블랙과 오프화이트로">tint to off-black and off-white</span></li>
+          <li><span class="k">WCAG contrast</span><span data-en="computed per text and background pair" data-ko="텍스트와 배경 쌍마다 직접 계산">computed per text and background pair</span></li>
+        </ul>
+        <p class="proof" data-en-html='<b>Proof:</b> the terminal on the right is this page&#39;s own pre-flight run. The 25-pair contrast table is trimmed to its verdict lines.' data-ko-html='<b>증거:</b> 오른쪽 터미널은 바로 이 페이지의 프리플라이트 실행 결과입니다. 25쌍짜리 대비 표는 판정 줄만 남기고 줄였습니다.'><b>Proof:</b> the terminal on the right is this page&#39;s own pre-flight run. The 25-pair contrast table is trimmed to its verdict lines.</p>
+      </div>
+      <div class="term glass reveal" style="--d:.1s" aria-label="this page passing its own pre-flight gate">
+        <div class="term-bar"><span class="dot a"></span><span class="dot b"></span><span class="dot c"></span><span class="term-title">preflight-gate.sh docs/index.html</span></div>
+<pre><span class="dim">$ bash preflight-gate.sh .superdesign/landing docs/index.html</span>
+-- anti-slop-gate --
+== ANTI-SLOP GATE: <span class="ok">PASS</span> == (1 file(s))
+-- contrast-gate --
+<span class="dim">element                fg       bg       ratio  need</span>
+muted text, worst-case #aaa8a1  #352e1e   5.65   4.5  <span class="ok">ok</span>
+CTA label on accent    #0e0f11  #e9b949  10.50   4.5  <span class="ok">ok</span>
+<span class="dim">... 23 more pairs, all ok ...</span>
+== CONTRAST GATE <span class="ok">PASS</span> ==
 == PREFLIGHT <span class="ok">PASS</span> ==
 </pre>
       </div>
@@ -271,6 +374,7 @@ ln -s ~/skills/superdesign-skill ~/.claude/skills/superdesign
           <a href="https://github.com/cskwork/supergoal-skill">supergoal</a>
         </div>
       </div>
+      <p class="foot-note" data-en="This page was designed by the skill it documents: backdrop art from its own asset chain, verdict computed by its own gate." data-ko="이 페이지는 여기서 소개하는 스킬이 직접 디자인했습니다. 배경 아트는 자체 에셋 체인으로 만들었고, 합격 여부도 자체 게이트가 계산했습니다.">This page was designed by the skill it documents: backdrop art from its own asset chain, verdict computed by its own gate.</p>
     </footer>
   </div>
 </section>
@@ -309,6 +413,17 @@ ln -s ~/skills/superdesign-skill ~/.claude/skills/superdesign
         entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
       }, { threshold: 0.12 });
       els.forEach(function(e){ io.observe(e); });
+    }
+
+    // Pointer spotlight on bento cards: writes CSS vars only, no React state, no rerender.
+    if (!reduce && window.matchMedia && window.matchMedia("(hover:hover)").matches) {
+      document.querySelectorAll(".card").forEach(function(card){
+        card.addEventListener("pointermove", function(ev){
+          var r = card.getBoundingClientRect();
+          card.style.setProperty("--mx", (ev.clientX - r.left) + "px");
+          card.style.setProperty("--my", (ev.clientY - r.top) + "px");
+        });
+      });
     }
 
     // Active dock pill via section observer (no scroll listener).
