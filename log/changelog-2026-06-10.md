@@ -17,3 +17,23 @@ Goal: make every intent-based mode turnkey for an agent, close accuracy gaps, ke
 
 - `tests/*.test.sh`: 74/74 pass after all edits (asset-fallback 7, gate-scenarios 21, mode-routing 13, reference-links 33).
 - Smoke test: vault with slop in `src/App.vue` -> PREFLIGHT FAIL (ai-purple, filler-verb); `node_modules/lib.js` with `#000` ignored; cleaned .vue -> PREFLIGHT PASS exit 0.
+
+# 2026-06-10 (later) - landing page restaged via /superdesign REDESIGN
+
+Goal: push docs/index.html to the glass-family ceiling as the skill's own showcase, dogfooding the full loop (vault at `.superdesign/landing/`).
+
+## Why each change
+
+- **Family kept, dials raised** (glass, VAR 8 / MOT 7 / DEN 4): "improve + maximum stylization" one day after the Liquid Glass commit reads as intensify-the-brand, not replace it. Assumption logged in the brief; family ceiling instead of switching to high-end avoids mixing families.
+- **Trend pulse from snapshot**: WebSearch errored this session; snapshot is dated 2026-06 (current month), so treated as current and noted in trend-pulse.md.
+- **Terminal font fix**: Newsreader (a serif) was the terminal face; swapped to JetBrains Mono. Newsreader now does display contrast words, step/stat numerals only - one coherent type system.
+- **Kinetic hero**: staged entrance + serif gradient contrast words; KO override drops italic (Hangul has no italic tradition, Newsreader has no Hangul glyphs) and uses bold Noto Sans KR with the same gradient.
+- **Authentic data over decoration**: stats strip (6 modes / 5 families / 9 detectors / 2 gates, all countable in repo), marquee of real detector ids, gate section shows this page's own preflight output with an honest "table trimmed" note.
+- **Depth stack**: generated backdrop art (gpt-image-2, tier 1 of the asset chain) over animated CSS aurora with `onerror` self-removal, vignette for text contrast, feTurbulence grain film. First gen attempt failed (stream disconnect, exit 5); retried.
+- **A11y wins**: focus-visible outlines added, loop steps h4 -> h3 (no skipped heading level), pill touch targets enlarged, every new motion behind prefers-reduced-motion, marquee duplicate aria-hidden + static-wrap fallback.
+- **Preserved**: anchors, dock/topbar structure, EN/KO toggle + voice, title/meta SEO, gold accent, CJK keep-all, GitHub links.
+
+## Verified
+
+- `bash preflight-gate.sh .superdesign/landing docs/index.html` -> ANTI-SLOP PASS, CONTRAST PASS (25 pairs enumerated incl. worst-case bright-backdrop composite, lowest 5.65:1), PREFLIGHT PASS. Re-run green after critique fixes.
+- HTML tag balance checked with a python html.parser script: OK.
