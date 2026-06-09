@@ -21,6 +21,7 @@ Infer the brief before any design. Output one line, then proceed.
 - Ask exactly ONE question only when two plausible reads genuinely diverge (e.g. preserve brand vs start fresh; consumer vs enterprise).
 - Resolve anything answerable from provided references/brand/code by reading, not asking.
 - If context is enough, do not ask - proceed to Trend pulse.
+- Non-interactive run (no user to answer): take the conservative read (preserve brand; the calmer dial row), record the assumption in the brief's open-question line, proceed.
 
 ## Anti-defaults (carry into Direction)
 

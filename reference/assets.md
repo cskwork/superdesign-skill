@@ -20,3 +20,5 @@ Real or generated assets, never div-mockups or invented data. Each tier degrades
 - Before tier 1/2, confirm the tool/skill is reachable. If not, skip to the next tier silently and note the substitution in the report.
 - Offline / no tools: go straight to real web images, then placeholder. The design must still ship and pass gates with placeholders flagged.
 - Match generated assets to the locked accent + palette from Direction; mismatched stock art is slop.
+
+Done when: every asset is real, generated, or a flagged placeholder with dimensions; manifest lists the tier per asset; no broken links.

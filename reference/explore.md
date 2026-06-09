@@ -20,3 +20,5 @@ Pulse current trends first (`trend-research.md`); each direction should reflect 
 ## Hand off
 
 Present directions side by side. Recommend one with a reason. Do not build until the user picks - then enter the CREATE loop with the chosen direction as the Design Read.
+
+Done when: 2-4 genuinely divergent directions presented + one recommendation; nothing built.

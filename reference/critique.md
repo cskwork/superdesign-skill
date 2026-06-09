@@ -15,3 +15,5 @@ Code (HTML/JSX/CSS), a screenshot, or a URL. For a URL, fetch the rendered sourc
 ## Report
 
 Findings by severity (blocking gate fails first, then HIGH/MEDIUM), each with file:line (or region) + a concrete fix. End with: overall verdict + the single highest-leverage change. Do not edit the design - hand the report back.
+
+Done when: report delivered with verdict + highest-leverage change; the design untouched.

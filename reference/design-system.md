@@ -16,3 +16,5 @@ Light + dark via one strategy (CSS vars/semantic tokens or Tailwind `dark:`). Bo
 ## Verify
 
 Enumerate every text/bg pair to `contrast-pairs.json`, run `templates/contrast-gate.mjs`. Run `anti-slop-gate.mjs` on any sample markup using the tokens. Deliver tokens + a one-screen usage example.
+
+Done when: token file + usage example delivered; contrast gate green on every pair; sample passes anti-slop.

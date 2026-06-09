@@ -15,7 +15,7 @@ DO: implement to `taste-core.md` + family/medium. Use exact dial values. Source 
 
 RULES: `taste-core.md` is final authority; a family overlays it, never replaces base universal bans. Commit to ONE family/lane, never mix. No em/en dash in visible output. No AI tells. Honor quiet constraints (a11y/regulation) over aesthetics. You do NOT self-approve - the critic runs the gate.
 
-WRITE: the UI code + a `claims.md` entry.
+WRITE: the UI code + a `claims.md` entry in the surface vault (default `.superdesign/<surface>/`).
 
 RETURN: a compressed summary - surface built, dials applied, family/lane, assets sourced (or placeholders flagged), the claim - not your transcript.
 

@@ -13,7 +13,7 @@ DO: run `templates/preflight-gate.sh <vault>` (which runs `anti-slop-gate.mjs` o
 
 RULES: distinct mandate - design quality + anti-slop. You do NOT edit the design and you do NOT fix violations. Each finding carries file:line (or region) + a concrete fix. Gate failures are blocking; never override a failing gate.
 
-WRITE: `contrast-pairs.json` (the pairs you found) and a findings list. No design edits.
+WRITE: `contrast-pairs.json` in the surface vault (default `.superdesign/<surface>/`) and a findings list. No design edits.
 
 RETURN: findings by severity (blocking gate fails first, then HIGH/MEDIUM) with file:line + fix, and an overall block/approve - not your transcript.
 
