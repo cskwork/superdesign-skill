@@ -1,0 +1,27 @@
+# mobile - mobile / native medium
+
+Load at Build when medium = mobile/native. Net-new vs web taste rules; pairs with `taste-core.md` (universal bans still hold).
+
+## Platform authority
+
+- **iOS**: Apple Human Interface Guidelines. SF Pro / SF Symbols, native nav bars + tab bars, large titles, dynamic type, safe-area insets, sheet/modal presentation, haptics on key actions.
+- **Android**: Material 3 (Expressive where it fits). Dynamic color, M3 tokens, large shape families, spring motion, FAB + nav rail/bar, edge-to-edge with system bar insets.
+- Respect each platform's conventions; do not ship iOS chrome on Android or vice versa.
+
+## Cross-platform stacks
+
+- React Native (+ Expo): `StyleSheet`/NativeWind, `react-navigation`, Reanimated for motion, platform-split where UX diverges.
+- SwiftUI: native components, `@Environment` for color scheme + dynamic type, `.safeAreaInset`.
+- Jetpack Compose: Material 3 composables, `WindowInsets`, dynamic color.
+
+## Mobile-specific rules
+
+- Touch targets >= 44x44pt (iOS) / 48x48dp (Android). Thumb-reach: primary actions in the lower zone.
+- One-hand layout; bottom sheets over top menus. Respect safe areas + notch/Dynamic Island; never hardcode status-bar height.
+- Type scales with the platform dynamic-type setting. Test smallest + largest. Honor reduce-motion + reduce-transparency.
+- Gestures have visible affordance + a button fallback. Loading/empty/error/offline states per screen.
+- Light + dark via platform color scheme. Off-black/off-white, not pure.
+
+## Assets
+
+App icons + screens via `assets.md` chain. Icon sets: SF Symbols (iOS), Material Symbols (Android), or one cross-platform family. No hand-rolled icon paths.
