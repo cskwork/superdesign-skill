@@ -4,3 +4,4 @@ data/
 .superdesign/
 .playwright-mcp/
 *.png
+.playwright-cli/
