@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e9b949'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-style='italic' font-size='20' font-weight='600' text-anchor='middle' fill='%230e0f11'%3Es%3C/text%3E%3C/svg%3E">
 <title>superdesign - intent-driven elegance for web and mobile</title>
 <meta name="description" content="A master web/mobile designer as a Claude Code skill. Read the intent, pulse current trends, route to the right aesthetic, and ship elegant UI past a deterministic anti-slop gate.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -121,6 +122,9 @@
   .btn-primary:hover::after{left:120%}
   .btn-ghost{color:var(--ink)}
   .btn-ghost:hover{transform:translateY(-2px)}
+  /* Friction-reducer line under the primary CTA: lowers the unspoken cost of the click. */
+  .cta-note{margin:14px 0 0; font-size:.84rem; color:var(--muted); letter-spacing:.01em}
+  .cta-note b{color:var(--body); font-weight:600}
 
   .term{border-radius:var(--r-term); overflow:hidden}
   .term-bar{display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--line)}
@@ -213,6 +217,7 @@
     body::before{animation:none}
     .btn-primary::after{display:none}
     .btn:hover,.pill:hover,.card:hover,.dock a:hover{transform:none}
+    ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none !important}
   }
   @media (max-width:900px){
     .hero{grid-template-columns:1fr; gap:36px; min-height:0; padding-top:128px}
@@ -254,11 +259,12 @@
       <a class="btn btn-primary" href="#install" data-en="Install the skill" data-ko="스킬 설치하기">Install the skill</a>
       <a class="btn btn-ghost pill" href="#gate" data-en="See the gate" data-ko="게이트 살펴보기">See the gate</a>
     </div>
+    <p class="cta-note" data-stage style="--i:3" data-en-html="Two commands, <b>no build step</b>. MIT, works offline." data-ko-html="명령 두 줄, <b>빌드 과정 없음</b>. MIT, 오프라인에서도 동작.">Two commands, <b>no build step</b>. MIT, works offline.</p>
     <div class="stats" data-stage style="--i:4">
       <div class="stat"><div class="n">6</div><p data-en="intent-routed modes" data-ko="의도로 나뉘는 모드">intent-routed modes</p></div>
       <div class="stat"><div class="n">5</div><p data-en="aesthetic families" data-ko="미감 패밀리">aesthetic families</p></div>
       <div class="stat"><div class="n">9</div><p data-en="slop detectors" data-ko="슬롭 디텍터">slop detectors</p></div>
-      <div class="stat"><div class="n">2</div><p data-en="deterministic gates" data-ko="결정적 게이트">deterministic gates</p></div>
+      <div class="stat"><div class="n">3</div><p data-en="deterministic gates" data-ko="결정적 게이트">deterministic gates</p></div>
     </div>
   </div>
   <div class="term glass" data-stage style="--i:2" aria-label="example anti-slop gate output">
@@ -330,8 +336,9 @@
           <li><span class="k">bounce easing</span><span data-en="overshoot cubic-bezier caught by math" data-ko="오버슈트 cubic-bezier를 수식으로 검출">overshoot cubic-bezier caught by math</span></li>
           <li><span class="k">pure black/white</span><span data-en="tint to off-black and off-white" data-ko="순수 흑백 대신 오프블랙과 오프화이트로">tint to off-black and off-white</span></li>
           <li><span class="k">WCAG contrast</span><span data-en="computed per text and background pair" data-ko="텍스트와 배경 쌍마다 직접 계산">computed per text and background pair</span></li>
+          <li><span class="k">rendered check</span><span data-en="hero fit, overflow, clean console - rendered with playwright-cli" data-ko="히어로 맞춤, 오버플로, 콘솔 정상 - playwright-cli로 렌더링">hero fit, overflow, clean console - rendered with playwright-cli</span></li>
         </ul>
-        <p class="proof" data-en-html='<b>Proof:</b> the terminal on the right is this page&#39;s own pre-flight run. The 25-pair contrast table is trimmed to its verdict lines.' data-ko-html='<b>증거:</b> 오른쪽 터미널은 바로 이 페이지의 프리플라이트 실행 결과입니다. 25쌍짜리 대비 표는 판정 줄만 남기고 줄였습니다.'><b>Proof:</b> the terminal on the right is this page&#39;s own pre-flight run. The 25-pair contrast table is trimmed to its verdict lines.</p>
+        <p class="proof" data-en-html='<b>Proof:</b> the terminal on the right is this page&#39;s own pre-flight run. It is also rendered with playwright-cli at mobile and desktop, console clean. The 25-pair contrast table is trimmed to its verdict lines.' data-ko-html='<b>증거:</b> 오른쪽 터미널은 바로 이 페이지의 프리플라이트 실행 결과입니다. 모바일과 데스크톱에서 playwright-cli로도 렌더링해 콘솔이 정상임을 확인했습니다. 25쌍짜리 대비 표는 판정 줄만 남기고 줄였습니다.'><b>Proof:</b> the terminal on the right is this page&#39;s own pre-flight run. It is also rendered with playwright-cli at mobile and desktop, console clean. The 25-pair contrast table is trimmed to its verdict lines.</p>
       </div>
       <div class="term glass reveal" style="--d:.1s" aria-label="this page passing its own pre-flight gate">
         <div class="term-bar"><span class="dot a"></span><span class="dot b"></span><span class="dot c"></span><span class="term-title">preflight-gate.sh docs/index.html</span></div>
@@ -374,7 +381,7 @@ ln -s ~/skills/superdesign-skill ~/.claude/skills/superdesign
           <a href="https://github.com/cskwork/supergoal-skill">supergoal</a>
         </div>
       </div>
-      <p class="foot-note" data-en="This page was designed by the skill it documents: backdrop art from its own asset chain, verdict computed by its own gate." data-ko="이 페이지는 여기서 소개하는 스킬이 직접 디자인했습니다. 배경 아트는 자체 에셋 체인으로 만들었고, 합격 여부도 자체 게이트가 계산했습니다.">This page was designed by the skill it documents: backdrop art from its own asset chain, verdict computed by its own gate.</p>
+      <p class="foot-note" data-en="This page was designed by the skill it documents: backdrop art from its own asset chain, scanned and rendered by its own gates." data-ko="이 페이지는 여기서 소개하는 스킬이 직접 디자인했습니다. 배경 아트는 자체 에셋 체인으로 만들었고, 자체 게이트가 스캔하고 렌더링해 검증했습니다.">This page was designed by the skill it documents: backdrop art from its own asset chain, scanned and rendered by its own gates.</p>
     </footer>
   </div>
 </section>
@@ -400,7 +407,14 @@ ln -s ~/skills/superdesign-skill ~/.claude/skills/superdesign
       : (saved || ((navigator.language || "en").toLowerCase().indexOf("ko") === 0 ? "ko" : "en"));
     setLang(initial);
     var t = document.getElementById("langToggle");
-    if (t) t.addEventListener("click", function(){ setLang(document.documentElement.lang === "en" ? "ko" : "en"); });
+    if (t) t.addEventListener("click", function(){
+      var next = document.documentElement.lang === "en" ? "ko" : "en";
+      var rm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // View Transitions API (Baseline 2026): cross-fade the language swap off the main thread.
+      // Progressive enhancement - unsupported browsers and reduced-motion fall straight through.
+      if (document.startViewTransition && !rm) { document.startViewTransition(function(){ setLang(next); }); }
+      else { setLang(next); }
+    });
 
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
