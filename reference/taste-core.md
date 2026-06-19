@@ -19,6 +19,7 @@ Set and carry exact names: `DESIGN_VARIANCE` (1 symmetric -> 10 chaotic), `MOTIO
 | playful / Awwwards / agency | 9-10 | 8-10 | 3-4 |
 | mainstream landing / portfolio | 7-9 | 6-8 | 3-5 |
 | trust-first / public-sector / a11y-critical | 3-4 | 2-3 | 4-5 |
+| dashboard / data-dense business app / admin / internal tool | 3-5 | 2-3 | 6-8 |
 
 ## Foundation
 

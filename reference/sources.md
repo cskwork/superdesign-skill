@@ -15,6 +15,24 @@ npm install bootstrap                              # Bootstrap 5.3
 
 Shopify Polaris web components: via CDN. govuk-frontend / uswds: per their docs.
 
+## Dashboard kits, tables, charts (data-dense apps; see `dashboard.md`)
+
+```
+npx shadcn@latest add sidebar-07 dashboard-01     # app shell + KPI/table blocks (https://ui.shadcn.com/blocks)
+npm install @tanstack/react-table @tanstack/react-virtual  # headless table + virtualization
+npm install ag-grid-community ag-grid-react        # enterprise grid (pivot/group/aggregate)
+npm install @mui/x-data-grid                        # only inside an MUI app
+npm install recharts                                # React/SVG default charts
+npm install @tremor/react                           # KPI-card + chart kit (built on Recharts; retheme)
+npm install @nivo/core @nivo/line                   # many-type SSR charts
+npm install @visx/visx                              # bespoke D3 primitives
+npm install echarts echarts-for-react               # Canvas/WebGL big-data; lazy-load
+npm install uplot                                   # fastest time-series / streaming
+npm install victory                                 # a11y-first (built-in ARIA + keyboard)
+npm install @observablehq/plot                      # grammar-of-graphics exploration
+npm install cmdk                                     # Cmd/Ctrl+K command palette
+```
+
 ## Canonical sources
 
 - Material: https://material-web.dev , https://m3.material.io
@@ -23,7 +41,13 @@ Shopify Polaris web components: via CDN. govuk-frontend / uswds: per their docs.
 - Radix: https://radix-ui.com
 - shadcn/ui: https://ui.shadcn.com
 - Primer: https://primer.style
-- Atlassian: https://atlassian.design
+- Atlassian: https://atlassian.design , AWS Cloudscape: https://cloudscape.design , Ant Design: https://ant.design
+- shadcn dashboard blocks: https://ui.shadcn.com/blocks , Vercel Geist: https://vercel.com/geist
+- TanStack Table: https://tanstack.com/table , TanStack Virtual: https://tanstack.com/virtual
+- AG Grid: https://ag-grid.com , MUI X: https://mui.com/x/react-data-grid
+- Recharts: https://recharts.org , Tremor: https://tremor.so , Nivo: https://nivo.rocks , visx: https://airbnb.io/visx
+- ECharts: https://echarts.apache.org , uPlot: https://github.com/leeoniya/uPlot , Victory: https://commerce.nearform.com/open-source/victory , Observable Plot: https://observablehq.com/plot
+- cmdk: https://cmdk.paco.me
 - Apple HIG: https://developer.apple.com/design/human-interface-guidelines
 - Tailwind v4: https://tailwindcss.com
 - Motion: https://motion.dev , GSAP: https://gsap.com

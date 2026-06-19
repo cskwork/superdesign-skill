@@ -74,3 +74,63 @@ cut it as scope creep) and use a supergoal-style hard stop (over the spec's soft
 - Not run: a live `playwright-cli` browser render - the driver is not installed on this machine, which
   is exactly the hard-stop path (a real run STOPs and asks the user). Gate logic verified deterministically
   via the suite above.
+
+# 2026-06-20 - data-dense business app (dashboard/admin) capability
+
+Goal: close the skill's known weakness on business dashboards / admin panels / internal tools. The five
+aesthetic families and `engagement.md` were all marketing/landing-oriented; the dials baseline (8/6/4)
+and the hero-centric layout rules actively pushed AWAY from the density a data app needs. Added a
+density-first capability grounded in how the best-regarded dashboards are actually built.
+
+Driven by a 7-agent research workflow: 4 parallel web-research lenses (real-world products, OSS GitHub
+repos, libraries/techniques, UX + 2026 trends + anti-patterns) -> synthesis (ranked Top 10 + techniques
+inventory + gap analysis) -> draft -> an adversarial critique pass (gate-compatibility, contract safety,
+fabricated-claim check, voice match). The critique returned APPROVE_WITH_FIXES with no CRITICAL issues;
+all 7 patch `old_string`s were verified verbatim-unique and the gate/contract scans passed before apply.
+
+## Why each change
+
+- **New `reference/dashboard.md` application overlay** (loaded at Build like `engagement.md`, NOT a new
+  mode or aesthetic family): density-first dials `VAR 3-5 / MOT 2-3 / DEN 6-8` overriding the landing
+  `8/6/4` baseline; app shell (icon-rail sidebar + breadcrumb topbar + `cmdk` command palette) replacing
+  the hero; data tables at scale (TanStack Table / AG Grid / MUI X, virtualization past ~50 rows,
+  tabular-nums, density tiers); chart-library selection by data scale (Recharts/Tremor -> Nivo/visx ->
+  ECharts/uPlot) with colorblind-safe status color + WCAG 1.4.1 data-table fallback; KPI/stat-card
+  anatomy with delta-vs-baseline; per-widget skeleton / empty-as-onboarding / error-recovery / freshness
+  states; dark-first elevation by lightness not shadow; enterprise-system guidance (Carbon/Ant/Fluent/
+  Cloudscape, never mixed); a dashboard anti-pattern ban list; embedded-AI-panel states.
+- **`taste-core.md` dials row** (the load-bearing fix): added
+  `dashboard / data-dense business app / admin / internal tool | 3-5 | 2-3 | 6-8`. The read-table
+  previously topped out at DEN 4-5, so the dials themselves steered away from density.
+- **Routing wired at every discovery point**: `aesthetics.md` selection-map row (flagged in prose as an
+  application overlay, not a 6th family); `trend-snapshot.md` upgraded the "dashboards-lite" footnote to
+  a dedicated Data-dense lane; `SKILL.md` Build step 4 now branches to `dashboard.md` (mirroring the
+  `engagement.md` clause - this is the wiring that makes the file load), plus a Reference-map row and a
+  Final-checklist line; `sources.md` gained dashboard kit/table/chart install commands + canonical URLs.
+- **READMEs (EN + KO)**: added a "built for data-dense apps too" principle bullet so the capability is
+  discoverable, citing the grounding products (Linear/Stripe/Vercel/Datadog, shadcn/Carbon).
+
+## Decisions / rejected alternatives
+
+- **Overlay, not a new mode or a 4th dial.** `mode-routing-contract.test.sh` greps for exactly the 6
+  modes + 3 dial names; a new mode/dial would either break the contract or bloat it. Dashboards are a
+  KIND within CREATE/REDESIGN with medium orthogonal - the `engagement.md` precedent fit exactly.
+- **No new gate rules; `anti-slop-gate.mjs` untouched.** Every recommendation is already gate-compatible
+  (off-black not pure `#000`, neutral + one non-purple accent, no Inter-default, no bounce easing, no
+  scroll listeners, ASCII). Data-app slop (KPI overload, chartjunk, color-only status, table slop,
+  marketing-hero-on-a-console) is contextual - a Critic judgment finding like engagement, not a
+  deterministic machine check.
+- **Kept the full chart/table/design-system catalog** (critique flagged it as long) because the user's
+  ask was explicitly to make the skill stronger and to surface the libraries/skills used; the content is
+  keyword-dense and install commands live in `sources.md`.
+
+## Verified
+
+- All four suites green on Windows (Git Bash): `gate-scenarios` 28, `reference-links-contract` 40
+  (was 38; +2 from `reference/dashboard.md` existence + orphan-listed checks), `mode-routing-contract` 13,
+  `asset-fallback-contract` 7. Total 88, 0 failed.
+- Pre-apply byte scan of `dashboard.md` and every patch `new_string`: zero em/en-dash (U+2013/U+2014),
+  zero AI-purple hex/Tailwind tokens, no `font-family: Inter` default. The `#000`/`#fff` literals in
+  `dashboard.md` are documentation prose mirroring `taste-core.md`; the gate never scans `reference/*.md`.
+- Not run: a live dashboard build + render. This change is skill content (references/routing/docs), not
+  runtime code; the existing render-gate path is unchanged.

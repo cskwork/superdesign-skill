@@ -12,6 +12,7 @@ Landing page: https://cskwork.github.io/superdesign-skill
 - **Trend-aware, not trend-chasing.** A live `WebSearch` trend pulse (with a dated offline snapshot fallback) keeps output current, but only trends that serve the brief are applied. The trend read is recorded with its date.
 - **Anti-slop is enforced, not eyeballed.** A deterministic detector (`templates/anti-slop-gate.mjs`) plus a WCAG contrast gate scan the built source, and a render gate (`templates/render-gate.sh`) proves the surface was actually rendered with `playwright-cli` (hero fit, no overflow, console clean) - not eyeballed from a code block. The designer never self-approves.
 - **Engaging by intent.** When the brief names a primary action (sign up / buy / book), `reference/engagement.md` applies mechanism-backed 2026 conversion craft - useful loading/empty/error states, real-data social proof, outcome-led CTA copy - while editorial and portfolio briefs are left alone.
+- **Built for data-dense apps too.** When the brief is an admin panel / dashboard / console / internal tool, `reference/dashboard.md` flips the defaults to density-first (no marketing hero, app shell + command palette, KPI cards with deltas, headless data tables, tabular numerals, colorblind-safe status, dark-first elevation), grounded in how Linear, Stripe, Vercel, Datadog and the shadcn/Carbon ecosystems are built.
 - **Graceful fallback.** Missing asset/trend tools degrade to documented placeholders and the baked snapshot, never faked assets or invented data.
 
 ## Principles
