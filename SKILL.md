@@ -14,8 +14,8 @@ Intent -> trend-aware direction that fits -> elegant UI -> verified against a de
 - Trend-aware != trend-chasing. Apply only trends that serve the intent. Record the trend read, dated.
 - Anti-slop enforced, not eyeballed. Every surface passes `anti-slop-gate.mjs` + contrast gate. Designer never self-approves.
 - Diverse by intent. Route to the aesthetic family + medium that fit; no single house style.
-- Self-contained + graceful fallback. Works without Stitch/gpt-image-2/WebSearch; missing tools -> documented placeholder + baked snapshot, never faked assets or invented data.
-- Verify vs ground truth. Run gates, honor reduced-motion + WCAG AA, report what passed with command output.
+- Self-contained + graceful fallback. Asset/trend tooling degrades: works without Stitch/gpt-image-2/WebSearch; missing tools -> documented placeholder + baked snapshot, never faked assets or invented data. Rendered verification is the one hard dependency: build modes render with `playwright-cli` (the only render driver, `reference/playwright-cli.md`); if it cannot be installed, STOP and ask - never substitute a headless render.
+- Verify vs ground truth. Run the static gate AND render the built surface with `playwright-cli`, honor reduced-motion + WCAG AA, report what passed with command output.
 - Hard stops. External publish (deploy/push/post) or destructive steps need explicit consent; ambiguous brief -> one question (non-interactive run: conservative read, assumption logged in the brief, proceed).
 
 ## Mode (classify the design intent, state it in one line)
@@ -42,9 +42,9 @@ Author-independent roles. Single surface -> inline, switch role with a fresh re-
 1. **Read (brief).** Infer kind, audience, vibe, references, brand, quiet constraints (a11y/regulation override aesthetics). State: `Reading this as: <kind> for <audience>, <vibe> language, leaning <system or family>.` Two reads diverge -> ask ONE question; else do not ask; non-interactive -> conservative read + logged assumption. Record in the vault. (`reference/design-brief.md`)
 2. **Trend pulse.** `WebSearch` current trend lane by default; on failure use `reference/trend-snapshot.md` (dated) and warn it may be stale. Reuse a same-kind pulse <=30 days old instead of re-searching (note the reuse). Keep only intent-serving trends. Record dated in the vault `trend-pulse.md`. (`reference/trend-research.md`)
 3. **Direction.** Set dials `DESIGN_VARIANCE` / `MOTION_INTENSITY` / `VISUAL_DENSITY`. Pick official design system OR one aesthetic family (`reference/aesthetics.md`) OR one trend lane - never mix. Pick medium, load `web.md` or `mobile.md`.
-4. **Build (Designer).** Implement to `reference/taste-core.md` (always authority) + chosen family/medium. Assets via `reference/assets.md`. Enforce anti-default + reduced-motion + computed contrast. No self-approval; append `claims.md` per surface. (`agents/designer.md`)
-5. **Critique (independent; no design edits).** Re-read `taste-core.md` + `impeccable-rules.md`. Enumerate every text/bg pair into vault `contrast-pairs.json`. Run `templates/preflight-gate.sh` (-> `anti-slop-gate.mjs` + `contrast-gate.mjs`). Log every violation. (`agents/design-critic.md`)
-6. **Verify.** Fix each violation, smallest change; re-run gate until green. Report passes with output. Fresh violation loops critique -> fix; stop on green. Cap: 3 critique->fix cycles; same rule still failing -> stop, report remaining violations honestly.
+4. **Build (Designer).** Implement to `reference/taste-core.md` (always authority) + chosen family/medium. Assets via `reference/assets.md`. Engagement-bearing brief (Read names a primary action - sign up/buy/book/subscribe) -> also `reference/engagement.md`. Enforce anti-default + reduced-motion + computed contrast. No self-approval; append `claims.md` per surface with a `Framings:` line. (`agents/designer.md`)
+5. **Critique (independent; no design edits).** Re-read `taste-core.md` + `impeccable-rules.md`. Enumerate every text/bg pair into vault `contrast-pairs.json`. Run `templates/preflight-gate.sh` (-> `anti-slop-gate.mjs` + `contrast-gate.mjs`) on the source, then render the surface with `playwright-cli` (`reference/playwright-cli.md`), write the `## Render` block, and run `templates/render-gate.sh`. Log every violation. (`agents/design-critic.md`)
+6. **Verify.** Fix each violation, smallest change; re-run BOTH gates (preflight + render) until green. Report passes with output. Fresh violation loops critique -> fix; stop on green. Cap: 3 critique->fix cycles; same rule still failing -> stop, report remaining violations honestly.
 
 Roles -> personas: build=`agents/designer.md`, critique=`agents/design-critic.md`, trends=`agents/trend-scout.md`, assets=`agents/asset-producer.md`.
 
@@ -54,9 +54,9 @@ No-build modes (SYSTEM/CRITIQUE/EXPLORE/ASSET): load the mode's reference file, 
 
 | Mode | Deliverable | Verified by |
 |---|---|---|
-| CREATE / REDESIGN | surface code + vault | `templates/preflight-gate.sh` green, output reported |
+| CREATE / REDESIGN | surface code + vault | `templates/preflight-gate.sh` (static) AND `templates/render-gate.sh` (rendered via playwright-cli) green, output reported |
 | SYSTEM | token file + one-screen usage example | `contrast-gate.mjs` on every pair; `anti-slop-gate.mjs` on the sample |
-| CRITIQUE | findings report (severity, file:line, fix, verdict) | detectors ran on the input; zero edits |
+| CRITIQUE | findings report (severity, file:line, fix, verdict) | detectors ran on the input; URL/HTML input also rendered + `render-gate.sh` (screenshot-only input cannot render - note it); zero edits |
 | EXPLORE | 2-4 divergent directions + one recommendation | directions genuinely differ; nothing built |
 | ASSET | asset file(s) + manifest (tier used, substitutions) | links resolve; palette matches; placeholders flagged |
 
@@ -72,6 +72,8 @@ No-build modes (SYSTEM/CRITIQUE/EXPLORE/ASSET): load the mode's reference file, 
 | `reference/impeccable-rules.md` | Critique: anti-pattern guardrails behind the detector |
 | `reference/web.md` | Build: web stack + layout |
 | `reference/mobile.md` | Build: mobile/native (iOS HIG, Material 3, RN/SwiftUI/Compose) |
+| `reference/engagement.md` | Build: conversion/engagement craft when the brief names a primary action (SaaS/consumer/commerce/marketing) |
+| `reference/playwright-cli.md` | Critique: the only render driver - render the built surface, then run `render-gate.sh` |
 | `reference/assets.md` | Build / ASSET: image + SVG fallback chain |
 | `reference/redesign.md` | REDESIGN: audit-first protocol |
 | `reference/design-system.md` | SYSTEM: tokens, scales, theming |
@@ -84,6 +86,7 @@ No-build modes (SYSTEM/CRITIQUE/EXPLORE/ASSET): load the mode's reference file, 
 - [ ] Mode + medium stated; brief read one line; trends pulsed + dated (or snapshot fallback disclosed)
 - [ ] One accent, one type system, one radius, one theme strategy; dials declared
 - [ ] Real/generated assets (no div-mockups); reduced-motion + WCAG AA honored
-- [ ] Mode contract met: build modes -> `templates/preflight-gate.sh` green (anti-slop + contrast) with output reported; other modes -> their verified-by row
+- [ ] Engagement-bearing brief -> `reference/engagement.md` applied (primary action obvious, useful states, real-data proof, outcome-led CTA); editorial/portfolio left alone
+- [ ] Mode contract met: build modes -> `templates/preflight-gate.sh` (static) AND `templates/render-gate.sh` (rendered via playwright-cli) green with output reported; other modes -> their verified-by row
 - [ ] Smallest change for intent; surrounding style matched; no unrequested rewrites
 - [ ] Any external publish / destructive step had explicit consent

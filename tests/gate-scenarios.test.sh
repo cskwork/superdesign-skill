@@ -93,6 +93,28 @@ run_case "full clean vault -> PREFLIGHT PASS"  0 "PREFLIGHT PASS"        bash "$
 cp "$T/slop.html" "$V/index.html"
 run_case "slop in vault -> blocked"            1 "anti-slop violations"  bash "$PFGATE" "$V"
 
+echo "== render-gate =="
+RGATE="$SKILL_DIR/templates/render-gate.sh"
+RV="$T/rvault"; mkdir -p "$RV/render"
+run_case "no vault arg -> usage exit 2"        2 "usage"                  bash "$RGATE"
+run_case "missing claims.md -> blocked"        1 "claims.md missing"      bash "$RGATE" "$RV"
+# claims with no Render block
+printf '# claims\n## surface\n- Mode: CREATE\n' > "$RV/claims.md"
+run_case "no Render block -> blocked"          1 "no '## Render' block"   bash "$RGATE" "$RV"
+# Render block names a non-playwright-cli driver
+printf '# claims\n## surface\n## Render\n- Tool: headless-chrome\n- Console: clean\n' > "$RV/claims.md"
+run_case "wrong driver -> blocked"             1 "not playwright-cli"     bash "$RGATE" "$RV"
+# correct driver but no screenshot under render/
+printf '# claims\n## surface\n## Render\n- Tool: playwright-cli\n- Console: clean\n' > "$RV/claims.md"
+run_case "no screenshot -> blocked"            1 "no screenshot"          bash "$RGATE" "$RV"
+# add a screenshot but console attests errors
+: > "$RV/render/desktop.png"
+printf '# claims\n## surface\n## Render\n- Tool: playwright-cli\n- Console: 2 errors (TypeError)\n' > "$RV/claims.md"
+run_case "console not clean -> blocked"        1 "not attested clean"     bash "$RGATE" "$RV"
+# full clean evidence -> PASS (warnings allowed; '0 errors' / 'clean' accepted)
+printf '# claims\n## surface\n## Render\n- Tool: playwright-cli\n- Console: clean (1 warning ignored)\n' > "$RV/claims.md"
+run_case "full render evidence -> RENDER PASS" 0 "RENDER GATE PASS"       bash "$RGATE" "$RV"
+
 echo
 printf "  RESULT: %d passed, %d failed\n" "$PASS" "$FAIL"
 echo

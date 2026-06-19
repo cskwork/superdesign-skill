@@ -5,6 +5,7 @@ Infer the brief before any design. Output one line, then proceed.
 ## Infer
 
 - **Kind**: SaaS/consumer/agency/event landing, portfolio, dashboard, app screen, marketing, editorial.
+- **Primary action**: the one thing the surface should make the user do - sign up, buy, book, subscribe, install, read, explore. Names it -> load `reference/engagement.md` in Build. Content/editorial/portfolio with no conversion goal -> skip it (no forced conversion patterns).
 - **Medium**: web, mobile web, native (iOS/Android), cross-platform.
 - **Audience**: procurement, consumer, recruiter, public-sector, regulated, developer, kids.
 - **Vibe words**: minimalist, calm, Linear, Awwwards, brutalist, premium, playful, serious B2B, editorial, glassy, dark-tech.
