@@ -16,6 +16,9 @@ Pick AT MOST ONE when the Design Read names its vibe. A family OVERLAYS `taste-c
 | raw / tactical / Swiss print / terminal / anti-corporate | `brutalist` |
 | editorial / publication / heritage / long-form | `editorial` |
 | glassy / frosted / premium media / Apple-adjacent | `glass` |
+| admin / dashboard / analytics console / internal tool / back-office / data table | `dashboard.md` overlay |
+
+`data-dense business apps` are NOT a family in this list: route them to the `reference/dashboard.md` application overlay (loaded at Build, like `engagement.md`), which sets density-first dials and replaces the hero with an app shell. It pairs with the chosen medium, not in place of one.
 
 ## minimalist
 

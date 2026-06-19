@@ -20,6 +20,7 @@ Pick the ONE lane that fits the brief. These are implementable lanes, not a chec
 | Material 3 Expressive (Android/cross) | Google-aligned, mobile-first | M3 expressive tokens, dynamic color, spring motion, large shape families | use the system, do not hand-recreate |
 | Tactile neo-brutalism | playful, indie, dev-tool, anti-corporate | hard borders, flat blocks, raw type, offset shadows, high contrast | one accent; keep a11y contrast |
 | Dark + vivid accent | dev-tool, fintech, AI product | off-black canvas, one vivid accent, mono numerals, glow used sparingly | not AI-purple; off-black not pure black |
+| Data-dense business app / console | admin, analytics, internal tool, back-office, ops | app shell (icon-rail sidebar + breadcrumb topbar) + KPI cards + headless data table + chart restraint + density modes + command palette + dark-first; see `dashboard.md` | no marketing hero; tabular numerals; colorblind-safe status; per-widget loading/empty/error states |
 
 ## Cross-cutting (apply within the chosen lane, not as a lane)
 
