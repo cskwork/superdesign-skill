@@ -26,3 +26,4 @@ Pick the ONE lane that fits the brief. These are implementable lanes, not a chec
 - Real or generated imagery over div-mockups. Accessibility and reduced-motion are non-negotiable in every lane.
 - Variable fonts and `clamp()` fluid type are mainstream-safe. Avoid Inter-as-default per `taste-core.md`.
 - AI-native surfaces (chat, agents): streaming states, source citations, undo/stop affordances are part of the design, not afterthoughts.
+- Engagement mechanics (for SaaS/consumer/commerce/marketing, see `engagement.md`): skeleton + optimistic UI over spinners, native scroll-driven CSS + View Transitions, single-stat/named-claim hero, outcome-led CTA + friction-reducer line, real-data social proof beside the CTA, thumb-zone + haptics on mobile, WCAG 2.2. These are conversion mechanisms, not aesthetic lanes - apply within the chosen lane.

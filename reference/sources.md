@@ -35,12 +35,16 @@ Shopify Polaris web components: via CDN. govuk-frontend / uswds: per their docs.
 - Simple Icons: https://simpleicons.org , devicon: https://devicon.dev - real brand SVG.
 - Unsplash / Pexels - stock photography.
 
+## Verification tooling
+
+- playwright-cli (`@playwright/cli`, microsoft/playwright-cli, Apache-2.0) - the only render-verification driver. Install: `npm install -g @playwright/cli@latest` then `playwright-cli install --skills`; browser via `--browser=chrome` or `npx playwright install chromium`. https://github.com/microsoft/playwright-cli . If it cannot be installed, the Critic stops and asks - no substitute (`reference/playwright-cli.md`).
+
 ## Third-party attribution
 
 - **taste-skill** (https://github.com/leonxlnx/taste-skill, MIT) - `taste-core.md` and `aesthetics.md` are condensed, adapted derivatives. Anti-slop rules + aesthetic families.
 - **impeccable** (https://github.com/pbakaus/impeccable, Apache-2.0) - `impeccable-rules.md` distills its anti-pattern concepts; `templates/anti-slop-gate.mjs` is an independent re-implementation (no upstream code copied), built on Anthropic's frontend-design lineage.
 - **stitch-landing-skill** (https://github.com/cskwork/stitch-landing-skill, MIT) - landing/Stitch flow inspiration for `assets.md` and the GH Pages landing.
-- **supergoal-skill** (cskwork, MIT) - skill structure, `contrast-gate.mjs`, agent/gate/test format adapted from the sibling skill.
+- **supergoal-skill** (cskwork, MIT) - skill structure, `contrast-gate.mjs`, agent/gate/test format adapted from the sibling skill. The playwright-cli single-driver pattern and `render-gate.sh` adapt its `reference/playwright-cli.md` + `qa-gate.sh` (the render gate is an independent re-implementation, scoped to static-surface rendering).
 
 ## Install superdesign
 

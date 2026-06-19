@@ -9,7 +9,8 @@ A="$SKILL_DIR/reference/assets.md"
 PASS=0; FAIL=0
 
 check() { # <label> <substr> <file>
-  if grep -qiF "$2" "$3"; then PASS=$((PASS+1)); echo "  ok  $1";
+  # -qiE (not -qiF): MSYS2 grep 3.0 aborts on -qiF; the substrings here are ERE-safe (words/hyphens).
+  if grep -qiE "$2" "$3"; then PASS=$((PASS+1)); echo "  ok  $1";
   else FAIL=$((FAIL+1)); echo "FAIL  $1 (missing: $2)"; fi
 }
 

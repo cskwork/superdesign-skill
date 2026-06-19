@@ -6,7 +6,7 @@ Load at Build when medium = web. Pairs with `taste-core.md`.
 
 - React or Next.js. Prefer Server Components; isolate interactivity in leaf `"use client"`.
 - Tailwind v4 (`@tailwindcss/postcss` or Vite plugin, not the old plugin). Plain HTML + Tailwind CDN OK for single-file landing/demo.
-- Motion from `motion/react` (`framer-motion` is legacy alias). GSAP + ScrollTrigger for pin/scrub only. Three.js for 3D, lazy-loaded.
+- Motion: native first. CSS scroll-driven animations (`scroll-timeline` / `view-timeline` via `animation-timeline`) for reveals + reading/progress indicators, and the View Transitions API (`document.startViewTransition` / `@view-transition`) for state + page transitions - both Baseline 2026 (Chrome/Edge 111+, Firefox 133+, Safari 18+) and run off the main thread, so they protect INP and cut JS. Reach for `motion/react` (`framer-motion` is legacy alias) or GSAP + ScrollTrigger only for what CSS cannot express (pin/scrub, physics). Three.js for 3D, lazy-loaded. Always wire a `prefers-reduced-motion` fallback; progressively enhance cross-document View Transitions (not yet in Firefox).
 - Fonts: `next/font` or self-hosted `@font-face` with `font-display: swap`. No production Google Fonts `<link>` (CDN OK for a throwaway single-file demo).
 - Icons: one family (Phosphor/HugeIcons/Radix/Tabler). Check `package.json` before importing; give the install command if missing.
 
