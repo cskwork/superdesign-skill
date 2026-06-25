@@ -1,6 +1,6 @@
 ---
 name: superdesign
-description: Master web/mobile designer - read intent, pulse current trends, route to the right aesthetic, ship elegant UI past a deterministic anti-slop gate. Use for "/superdesign", "design X", "make this beautiful", "landing page", "redesign UI", "design system / tokens", "critique this design", "explore directions", "generate image / icon / logo".
+description: superdesign - web/mobile UI design past a deterministic anti-slop gate. Use for "/superdesign", "design X", "make this beautiful", "landing page", "redesign UI", "design system / tokens", "critique this design", "explore directions", "generate image / icon / logo".
 ---
 
 # /superdesign - intent-driven elegance
