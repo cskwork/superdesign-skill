@@ -1,4 +1,4 @@
 # superdesign
 
-@./SKILL.md
+@./skills/superdesign/SKILL.md
 
