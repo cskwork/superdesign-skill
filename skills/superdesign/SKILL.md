@@ -1,6 +1,6 @@
 ---
 name: superdesign
-description: superdesign - web/mobile UI design past a deterministic anti-slop gate. Use for "/superdesign", "design X", "make this beautiful", "landing page", "redesign UI", "design system / tokens", "critique this design", "explore directions", "generate image / icon / logo".
+description: Web/mobile UI design past an anti-slop gate. Use for /superdesign, "design X", "make this beautiful", or "redesign UI".
 ---
 
 # /superdesign - intent-driven elegance

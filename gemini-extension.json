@@ -1,6 +1,6 @@
 {
   "name": "superdesign",
   "version": "0.1.0",
-  "description": "superdesign - web/mobile UI design past a deterministic anti-slop gate. Use for \"/superdesign\", \"design X\", \"make this...",
+  "description": "Web/mobile UI design past an anti-slop gate. Use for /superdesign, \"design X\", \"make this beautiful\", or \"redesign UI\".",
   "contextFileName": "GEMINI.md"
 }
