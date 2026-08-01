@@ -1,7 +1,7 @@
 {
   "name": "superdesign",
   "version": "0.1.0",
-  "description": "superdesign - web/mobile UI design past a deterministic anti-slop gate. Use for \"/superdesign\", \"design X\", \"make this beautiful\", \"landing page\", \"redesign UI\", \"design system / tokens\", \"critique this design\", \"explore directions\", \"generate image / icon / logo\".",
+  "description": "superdesign - web/mobile UI design past a deterministic anti-slop gate. Use for \"/superdesign\", \"design X\", \"make this...",
   "author": {
     "name": "cskwork",
     "url": "https://github.com/cskwork"
@@ -19,7 +19,7 @@
   "interface": {
     "displayName": "Superdesign",
     "shortDescription": "superdesign - web/mobile UI design past a deterministic anti-slop gate. Use for ",
-    "longDescription": "superdesign - web/mobile UI design past a deterministic anti-slop gate. Use for \"/superdesign\", \"design X\", \"make this beautiful\", \"landing page\", \"redesign UI\", \"design system / tokens\", \"critique this design\", \"explore directions\", \"generate image / icon / logo\".",
+    "longDescription": "superdesign - web/mobile UI design past a deterministic anti-slop gate. Use for \"/superdesign\", \"design X\", \"make this...",
     "developerName": "cskwork",
     "category": "Productivity",
     "capabilities": [
