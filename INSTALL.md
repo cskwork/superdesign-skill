@@ -6,7 +6,7 @@
 ### Install
 
 ```bash
-claude plugin marketplace add cskwork/superdesign
+claude plugin marketplace add cskwork/superdesign-skill
 claude plugin install superdesign@superdesign
 ```
 
@@ -39,7 +39,7 @@ claude plugin marketplace remove superdesign
 ### Install
 
 ```bash
-codex plugin marketplace add cskwork/superdesign --ref main
+codex plugin marketplace add cskwork/superdesign-skill --ref main
 codex plugin add superdesign@superdesign
 ```
 
@@ -66,14 +66,14 @@ codex plugin marketplace remove superdesign
 ### Install (extension, always-on)
 
 ```bash
-gemini extensions install https://github.com/cskwork/superdesign
+gemini extensions install https://github.com/cskwork/superdesign-skill
 ```
 
 ### Install (command, opt-in)
 
 ```bash
 mkdir -p ~/.gemini/commands
-curl -fsSL https://raw.githubusercontent.com/cskwork/superdesign/main/skills/superdesign/agents/gemini.toml \
+curl -fsSL https://raw.githubusercontent.com/cskwork/superdesign-skill/main/skills/superdesign-skill/agents/gemini.toml \
   -o ~/.gemini/commands/superdesign.toml
 ```
 
@@ -99,8 +99,8 @@ gemini extensions uninstall superdesign
 ### Install
 
 ```bash
-npx skills add cskwork/superdesign
-npx skills add cskwork/superdesign -g
+npx skills add cskwork/superdesign-skill
+npx skills add cskwork/superdesign-skill -g
 ```
 
 Type `/superdesign` in a new agent chat.
@@ -131,7 +131,7 @@ npx skills remove superdesign
 ### Install
 
 ```bash
-agy plugin install https://github.com/cskwork/superdesign
+agy plugin install https://github.com/cskwork/superdesign-skill
 ```
 
 ### Verify

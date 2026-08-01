@@ -6,8 +6,8 @@
     "name": "cskwork",
     "url": "https://github.com/cskwork"
   },
-  "homepage": "https://github.com/cskwork/superdesign",
-  "repository": "https://github.com/cskwork/superdesign",
+  "homepage": "https://github.com/cskwork/superdesign-skill",
+  "repository": "https://github.com/cskwork/superdesign-skill",
   "license": "MIT",
   "keywords": [
     "superdesign",
@@ -25,7 +25,7 @@
     "capabilities": [
       "Instructions"
     ],
-    "websiteURL": "https://github.com/cskwork/superdesign",
+    "websiteURL": "https://github.com/cskwork/superdesign-skill",
     "defaultPrompt": [
       "Use superdesign for this task."
     ],
