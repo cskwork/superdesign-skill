@@ -1,0 +1,34 @@
+{
+  "name": "superdesign",
+  "version": "0.1.0",
+  "description": "superdesign - web/mobile UI design past a deterministic anti-slop gate. Use for \"/superdesign\", \"design X\", \"make this beautiful\", \"landing page\", \"redesign UI\", \"design system / tokens\", \"critique this design\", \"explore directions\", \"generate image / icon / logo\".",
+  "author": {
+    "name": "cskwork",
+    "url": "https://github.com/cskwork"
+  },
+  "homepage": "https://github.com/cskwork/superdesign",
+  "repository": "https://github.com/cskwork/superdesign",
+  "license": "MIT",
+  "keywords": [
+    "superdesign",
+    "skill",
+    "claude-code",
+    "codex"
+  ],
+  "skills": "./",
+  "interface": {
+    "displayName": "Superdesign",
+    "shortDescription": "superdesign - web/mobile UI design past a deterministic anti-slop gate. Use for ",
+    "longDescription": "superdesign - web/mobile UI design past a deterministic anti-slop gate. Use for \"/superdesign\", \"design X\", \"make this beautiful\", \"landing page\", \"redesign UI\", \"design system / tokens\", \"critique this design\", \"explore directions\", \"generate image / icon / logo\".",
+    "developerName": "cskwork",
+    "category": "Productivity",
+    "capabilities": [
+      "Instructions"
+    ],
+    "websiteURL": "https://github.com/cskwork/superdesign",
+    "defaultPrompt": [
+      "Use superdesign for this task."
+    ],
+    "brandColor": "#2563EB"
+  }
+}

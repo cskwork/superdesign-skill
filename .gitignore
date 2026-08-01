@@ -1,7 +1,6 @@
-node_modules/
-data/
 .DS_Store
-.superdesign/
-.playwright-mcp/
-*.png
-.playwright-cli/
+__pycache__/
+*.py[cod]
+evals/results/
+node_modules/
+dist/

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-marketplace.json",
+  "name": "superdesign",
+  "description": "superdesign - web/mobile UI design past a deterministic anti-slop gate. Use for \"/superdesign\", \"design X\", \"make this b",
+  "owner": {
+    "name": "cskwork"
+  },
+  "plugins": [
+    {
+      "name": "superdesign",
+      "description": "superdesign - web/mobile UI design past a deterministic anti-slop gate. Use for \"/superdesign\", \"design X\", \"make this b",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}
