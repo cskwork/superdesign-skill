@@ -3,7 +3,7 @@
 #
 # Usage: bash tests/mode-routing-contract.test.sh
 
-SKILL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+SKILL_DIR="$(cd "$(dirname "$0")/../skills/superdesign" && pwd)"
 SKILL="$SKILL_DIR/SKILL.md"
 PASS=0; FAIL=0
 
