@@ -4,7 +4,7 @@
 #
 # Usage: bash tests/asset-fallback-contract.test.sh
 
-SKILL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+SKILL_DIR="$(cd "$(dirname "$0")/../skills/superdesign" && pwd)"
 A="$SKILL_DIR/reference/assets.md"
 PASS=0; FAIL=0
 

@@ -5,7 +5,7 @@
 #
 # Usage: bash tests/gate-scenarios.test.sh   (exit 0 only if all cases pass; run from repo root)
 
-SKILL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+SKILL_DIR="$(cd "$(dirname "$0")/../skills/superdesign" && pwd)"
 T="$(mktemp -d)"
 trap 'rm -rf "$T"' EXIT
 PASS=0; FAIL=0

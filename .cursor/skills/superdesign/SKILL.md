@@ -1,6 +1,6 @@
 ---
 name: superdesign
-description: superdesign - web/mobile UI design taken past a deterministic anti-slop gate. Use for "/superdesign", designing a new UI or landing page, redesigning an existing UI, building design tokens or a design system, critiquing a design, exploring design directions, or generating an image / icon / logo.
+description: Create, redesign, or critique web and mobile interfaces with static design gates and rendered verification. Also supports design tokens, visual direction exploration, and standalone images, icons, or logos.
 ---
 
 # /superdesign - intent-driven elegance
@@ -35,7 +35,7 @@ Tie-breaks (one mode wins): "critique and fix" -> REDESIGN (CRITIQUE never edits
 
 ## Default loop (CREATE / REDESIGN) - role-separated
 
-Author-independent roles. Single surface -> inline, switch role with a fresh re-read. 2+ surfaces or a parallel asset batch -> orchestrate agents, one Designer per surface; scaffolding may fan out, look-and-feel stays deep-and-narrow.
+Keep Designer and critic roles separate. A single surface runs inline with a fresh re-read for critique. Delegate independent surfaces or asset work only when it reduces total work; surface count alone does not require agents. Preserve static and rendered verification for each built surface.
 
 **Vault** = one work dir per surface, default `.superdesign/<surface>/`: holds `design-brief.md`, `trend-pulse.md`, `claims.md`, `contrast-pairs.json` (start each from `templates/`; the pairs seed is `templates/contrast-pairs.example.json`). `templates/preflight-gate.sh <vault> <source files>` reads it - no vault, no gate. Create it at step 1.
 
@@ -75,11 +75,6 @@ No-build modes (SYSTEM/CRITIQUE/EXPLORE/ASSET): load the mode's reference file, 
 | `reference/engagement.md` | Build: conversion/engagement craft when the brief names a primary action (SaaS/consumer/commerce/marketing) |
 | `reference/dashboard.md` | Build: data-dense business app / admin / dashboard / internal tool (density-first overlay; no marketing hero) |
 | `reference/playwright-cli.md` | Critique: the only render driver - render the built surface, then run `templates/render-gate.sh` |
-| `reference/assets.md` | Build / ASSET: image + SVG fallback chain |
-| `reference/redesign.md` | REDESIGN: audit-first protocol |
-| `reference/design-system.md` | SYSTEM: tokens, scales, theming |
-| `reference/critique.md` | CRITIQUE: review-only flow |
-| `reference/explore.md` | EXPLORE: divergent directions |
 | `reference/sources.md` | Install commands, sources, attribution |
 
 ## Final checklist
